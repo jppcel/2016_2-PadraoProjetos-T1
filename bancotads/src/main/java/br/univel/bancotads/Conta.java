@@ -6,8 +6,6 @@ public class Conta {
 	private Agencia agencia;
 	private Cliente titular;
 	private double saldo;
-	// senha
-	
-	
+	private int tipoConta;
 	
 }

@@ -3,15 +3,27 @@ package br.univel.bancotads.view;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
+
+import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PanelHomeCliente extends JPanel {
 
-	/**
-	 * Create the panel.
-	 */
-	public PanelHomeCliente() {
+	private CardLayout cl;
+	private JPanel cards;
+	
+	private void setcl(CardLayout cl){
+		this.cl = cl;
+	}
+	private void setcards(JPanel cards){
+		this.cards = cards;
+	}
+	public PanelHomeCliente(CardLayout cl, JPanel cards) {
+		setcl(cl);
+		setcards(cards);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
@@ -20,6 +32,11 @@ public class PanelHomeCliente extends JPanel {
 		setLayout(gridBagLayout);
 		
 		JButton btn_1 = new JButton("1 - Saques");
+		btn_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cl.show(cards, "teste");
+			}
+		});
 		GridBagConstraints gbc_btn_1 = new GridBagConstraints();
 		gbc_btn_1.ipady = 30;
 		gbc_btn_1.fill = GridBagConstraints.HORIZONTAL;
