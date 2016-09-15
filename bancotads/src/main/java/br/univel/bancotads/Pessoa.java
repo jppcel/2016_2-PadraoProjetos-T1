@@ -10,12 +10,12 @@ public class Pessoa {
 	private String sobrenome;
 	private EstadoCivil estadoCivil;
 	private Genero genero;
-	private String nacionalidade;
-	private String naturalidade;
+	// private String nacionalidade;
+	//private String naturalidade;
 	private Date dataNascimento;
 	private String cpf; // Devido a diversos motivos, como por exemplo, números começados por 0 e etc.
-	private String email;
-	private String telefone;
+	//private String email;
+	//private String telefone;
 
 	public String getNome() {
 		return nome;
