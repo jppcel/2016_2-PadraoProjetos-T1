@@ -2,8 +2,6 @@ package br.univel.bancotads.view;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -20,22 +18,6 @@ public class DefaultView extends JFrame {
 	private CardLayout cardlayout = new CardLayout();
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DefaultView frame = new DefaultView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public DefaultView() {
@@ -50,7 +32,7 @@ public class DefaultView extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JPanel panel_1 = new PanelHomeCliente(cardlayout, cards);
+		JPanel panel_1 = new PanelHomeCliente(this);
 		JPanel panel_2 = new PanelPayment();
 		JPanel panel_3 = new PanelSaqueCliente();
 		
@@ -69,6 +51,10 @@ public class DefaultView extends JFrame {
 		
 		/*JPanel panel_1 = new PanelHomeCliente();
 		contentPane.add(panel_1, BorderLayout.CENTER); */
+	}
+	
+	public void showPanel(String what){
+		cardlayout.show(cards, what);
 	}
 
 }

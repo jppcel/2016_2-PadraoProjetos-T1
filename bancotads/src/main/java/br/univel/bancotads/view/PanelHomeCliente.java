@@ -12,18 +12,7 @@ import java.awt.event.ActionEvent;
 
 public class PanelHomeCliente extends JPanel {
 
-	private CardLayout cl;
-	private JPanel cards;
-	
-	private void setcl(CardLayout cl){
-		this.cl = cl;
-	}
-	private void setcards(JPanel cards){
-		this.cards = cards;
-	}
-	public PanelHomeCliente(CardLayout cl, JPanel cards) {
-		setcl(cl);
-		setcards(cards);
+	public PanelHomeCliente(final DefaultView dv) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
@@ -34,7 +23,7 @@ public class PanelHomeCliente extends JPanel {
 		JButton btn_1 = new JButton("1 - Saques");
 		btn_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cl.show(cards, "teste");
+				dv.showPanel("teste");
 			}
 		});
 		GridBagConstraints gbc_btn_1 = new GridBagConstraints();
