@@ -45,8 +45,8 @@ public class DefaultView extends JFrame {
 		contentPane.add(cards, BorderLayout.CENTER);
 
 		cards.add(panel_homeClient, "home");
-		cards.add(panel_payment, "teste");
-		cards.add(panel_withdrawClient, "teste");
+		cards.add(panel_payment, "payment");
+		cards.add(panel_withdrawClient, "withdrawal");
 		cardlayout.show(cards, "home");
 		
 		

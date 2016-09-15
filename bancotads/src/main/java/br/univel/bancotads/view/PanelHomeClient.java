@@ -23,7 +23,7 @@ public class PanelHomeClient extends JPanel {
 		JButton btn_1 = new JButton("1 - Saques");
 		btn_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dv.showPanel("teste");
+				dv.showPanel("withdrawal");
 			}
 		});
 		GridBagConstraints gbc_btn_1 = new GridBagConstraints();
