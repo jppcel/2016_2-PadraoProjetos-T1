@@ -47,7 +47,7 @@ public class PanelBancarioRegister extends JPanel {
 		add(tf_nome, gbc_tf_nome);
 		tf_nome.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("Idade");
+		JLabel lblNewLabel_3 = new JLabel("Data de Nascimento");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.gridwidth = 4;
 		gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;

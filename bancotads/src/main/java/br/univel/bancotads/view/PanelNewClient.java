@@ -65,7 +65,7 @@ public class PanelNewClient extends JPanel {
 		add(tf_nome, "2, 6, 7, 1, fill, default");
 		tf_nome.setColumns(10);
 		
-		JLabel lblNewLabel_5 = new JLabel("Idade:");
+		JLabel lblNewLabel_5 = new JLabel("Data de Nascimento:");
 		add(lblNewLabel_5, "2, 8");
 		
 		JLabel lblNewLabel_6 = new JLabel("CPF:");
