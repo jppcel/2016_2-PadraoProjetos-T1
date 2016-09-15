@@ -41,18 +41,6 @@ public class Pessoa {
 	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
-	public String getNacionalidade() {
-		return nacionalidade;
-	}
-	public void setNacionalidade(String nacionalidade) {
-		this.nacionalidade = nacionalidade;
-	}
-	public String getNaturalidade() {
-		return naturalidade;
-	}
-	public void setNaturalidade(String naturalidade) {
-		this.naturalidade = naturalidade;
-	}
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
@@ -65,16 +53,4 @@ public class Pessoa {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getTelefone() {
-		return telefone;
-	}
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}	
 }
