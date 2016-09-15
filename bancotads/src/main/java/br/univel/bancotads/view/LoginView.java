@@ -1,6 +1,5 @@
 package br.univel.bancotads.view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,13 +11,15 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.Toolkit;
-import java.io.InputStream;
 
 public class LoginView extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5320876147202606774L;
 	private JPanel contentPane;
 	private JTextField tf_usuario;
 	private JTextField tf_senha;

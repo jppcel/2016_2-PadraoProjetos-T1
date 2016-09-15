@@ -7,14 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
-import javax.swing.JDesktopPane;
-import javax.swing.JLabel;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 
 public class DefaultView extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2089990426939743900L;
 	private JPanel contentPane;
 
 	/**
