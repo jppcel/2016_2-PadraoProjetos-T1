@@ -14,7 +14,7 @@ public class PanelHomeBancario extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelHomeBancario() {
+	public PanelHomeBancario(final DefaultView df) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{350, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};

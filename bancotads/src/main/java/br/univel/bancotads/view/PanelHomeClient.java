@@ -10,9 +10,9 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class PanelHomeCliente extends JPanel {
+public class PanelHomeClient extends JPanel {
 
-	public PanelHomeCliente(final DefaultView dv) {
+	public PanelHomeClient(final DefaultView dv) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};

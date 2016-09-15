@@ -32,9 +32,9 @@ public class DefaultView extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JPanel panel_1 = new PanelHomeCliente(this);
-		JPanel panel_2 = new PanelPayment();
-		JPanel panel_3 = new PanelSaqueCliente();
+		JPanel panel_homeClient = new PanelHomeClient(this);
+		JPanel panel_payment = new PanelPayment(this);
+		JPanel panel_withdrawClient = new PanelWithdrawalClient(this);
 		
 		
 		JPanel panel = new PanelHeader();
@@ -44,8 +44,9 @@ public class DefaultView extends JFrame {
 		cards.setLayout(cardlayout);
 		contentPane.add(cards, BorderLayout.CENTER);
 
-		cards.add(panel_1, "home");
-		cards.add(panel_3, "teste");
+		cards.add(panel_homeClient, "home");
+		cards.add(panel_payment, "teste");
+		cards.add(panel_withdrawClient, "teste");
 		cardlayout.show(cards, "home");
 		
 		

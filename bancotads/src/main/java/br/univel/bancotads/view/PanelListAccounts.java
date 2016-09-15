@@ -12,7 +12,7 @@ public class PanelListAccounts extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelListAccounts() {
+	public PanelListAccounts(final DefaultView df) {
 	
 		
 

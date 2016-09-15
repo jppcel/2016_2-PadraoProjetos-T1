@@ -18,7 +18,7 @@ public class PanelBancarioRegister extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelBancarioRegister() {
+	public PanelBancarioRegister(final DefaultView df) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

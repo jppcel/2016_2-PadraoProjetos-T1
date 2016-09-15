@@ -7,13 +7,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 
-public class PanelSaqueCliente extends JPanel {
+public class PanelWithdrawalClient extends JPanel {
 	private JTextField tf_valor;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelSaqueCliente() {
+	public PanelWithdrawalClient(final DefaultView df) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{175, 175, 175, 175, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};

@@ -19,7 +19,7 @@ public class PanelTransferClient extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelTransferClient() {
+	public PanelTransferClient(final DefaultView df) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

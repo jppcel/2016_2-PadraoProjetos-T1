@@ -17,7 +17,7 @@ public class PanelSuccess extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelSuccess(String operacao, Float valor) {
+	public PanelSuccess(final DefaultView df, String operacao, Float valor) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

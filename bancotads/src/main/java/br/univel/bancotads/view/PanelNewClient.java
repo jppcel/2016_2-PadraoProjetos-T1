@@ -22,7 +22,7 @@ public class PanelNewClient extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelNewClient() {
+	public PanelNewClient(final DefaultView df) {
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(81dlu;default):grow"),
