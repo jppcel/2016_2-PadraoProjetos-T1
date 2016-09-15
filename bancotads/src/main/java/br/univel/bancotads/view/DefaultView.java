@@ -50,10 +50,8 @@ public class DefaultView extends JFrame {
 		JPanel panel = new PanelHeader();
 		contentPane.add(panel, BorderLayout.NORTH);
 		
-//		JPanel panel_1 = new PanelHomeCliente();
-//		contentPane.add(panel_1, BorderLayout.CENTER);
-		
-//		LoginView viewLogin = new LoginView();
+		JPanel panel_1 = new PanelHomeCliente();
+		contentPane.add(panel_1, BorderLayout.CENTER);
 	}
 
 }
