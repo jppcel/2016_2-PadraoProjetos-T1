@@ -8,9 +8,12 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.util.Date;
 
-import javax.swing.ImageIcon;
-
 public class PanelHeader extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3379998260219697988L;
 
 	/**
 	 * Create the panel.
