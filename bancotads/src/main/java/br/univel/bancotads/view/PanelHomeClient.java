@@ -53,6 +53,11 @@ public class PanelHomeClient extends JPanel {
 		add(btn_2, gbc_btn_2);
 		
 		JButton btn_5 = new JButton("5 - Pagamentos");
+		btn_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dv.showPanel("payment");
+			}
+		});
 		GridBagConstraints gbc_btn_5 = new GridBagConstraints();
 		gbc_btn_5.ipady = 30;
 		gbc_btn_5.fill = GridBagConstraints.HORIZONTAL;
