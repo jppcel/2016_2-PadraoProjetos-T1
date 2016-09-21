@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
 import javax.swing.JLabel;
+import java.awt.Color;
 
 public class PanelPayment extends JPanel {
 	private JTextField tf_valor;
@@ -16,6 +17,7 @@ public class PanelPayment extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelPayment(final DefaultView df) {
+		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};

@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Color;
 
 public class PanelHomeBancario extends JPanel {
 
@@ -15,6 +16,7 @@ public class PanelHomeBancario extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelHomeBancario(final DefaultView df) {
+		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{350, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};

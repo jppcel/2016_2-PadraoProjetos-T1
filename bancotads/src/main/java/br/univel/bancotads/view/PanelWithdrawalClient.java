@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
+import java.awt.Color;
 
 public class PanelWithdrawalClient extends JPanel {
 	private JTextField tf_valor;
@@ -14,6 +15,7 @@ public class PanelWithdrawalClient extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelWithdrawalClient(final DefaultView df) {
+		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{175, 175, 175, 175, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};

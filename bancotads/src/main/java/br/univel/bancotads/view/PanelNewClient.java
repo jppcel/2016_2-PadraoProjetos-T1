@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.Color;
 
 public class PanelNewClient extends JPanel {
 	private JTextField tf_senhaoperacoes;
@@ -23,6 +24,7 @@ public class PanelNewClient extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelNewClient(final DefaultView df) {
+		setBackground(Color.WHITE);
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(81dlu;default):grow"),

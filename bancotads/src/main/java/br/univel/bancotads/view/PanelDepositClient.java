@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import java.awt.Font;
+import java.awt.Color;
 
 public class PanelDepositClient extends JPanel {
 	private JTextField textField;
@@ -21,6 +22,7 @@ public class PanelDepositClient extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelDepositClient(final DefaultView df) {
+		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};

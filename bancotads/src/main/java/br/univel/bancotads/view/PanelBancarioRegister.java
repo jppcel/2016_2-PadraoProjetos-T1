@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.Color;
 
 public class PanelBancarioRegister extends JPanel {
 	private JTextField tf_senhaoperacoes;
@@ -19,6 +20,7 @@ public class PanelBancarioRegister extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelBancarioRegister(final DefaultView df) {
+		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

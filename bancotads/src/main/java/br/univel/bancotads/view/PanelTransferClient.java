@@ -9,6 +9,7 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.Font;
+import java.awt.Color;
 
 public class PanelTransferClient extends JPanel {
 	private JTextField tf_ag;
@@ -20,6 +21,7 @@ public class PanelTransferClient extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelTransferClient(final DefaultView df) {
+		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

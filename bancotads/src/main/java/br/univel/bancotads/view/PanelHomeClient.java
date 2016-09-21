@@ -4,15 +4,23 @@ import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
 
-import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Color;
 
 public class PanelHomeClient extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1484003892591769942L;
+
 	public PanelHomeClient(final DefaultView dv) {
+		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
@@ -35,6 +43,12 @@ public class PanelHomeClient extends JPanel {
 		add(btn_1, gbc_btn_1);
 		
 		JButton btn_4 = new JButton("4 - Transferências");
+		btn_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				dv.showPanel("transferClient");
+			}
+		});
 		GridBagConstraints gbc_btn_4 = new GridBagConstraints();
 		gbc_btn_4.ipady = 30;
 		gbc_btn_4.fill = GridBagConstraints.HORIZONTAL;
@@ -44,6 +58,12 @@ public class PanelHomeClient extends JPanel {
 		add(btn_4, gbc_btn_4);
 		
 		JButton btn_2 = new JButton("2 - Saldo");
+		btn_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+			}
+		});
 		GridBagConstraints gbc_btn_2 = new GridBagConstraints();
 		gbc_btn_2.ipady = 30;
 		gbc_btn_2.fill = GridBagConstraints.HORIZONTAL;
@@ -67,6 +87,12 @@ public class PanelHomeClient extends JPanel {
 		add(btn_5, gbc_btn_5);
 		
 		JButton btn_3 = new JButton("3 - Depósitos");
+		btn_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				dv.showPanel("depositClient");
+			}
+		});
 		GridBagConstraints gbc_btn_3 = new GridBagConstraints();
 		gbc_btn_3.ipady = 30;
 		gbc_btn_3.fill = GridBagConstraints.HORIZONTAL;

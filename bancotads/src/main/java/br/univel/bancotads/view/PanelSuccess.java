@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
 import java.awt.Insets;
+import java.awt.Color;
 
 public class PanelSuccess extends JPanel {
 
@@ -13,11 +14,13 @@ public class PanelSuccess extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 8403642595368760634L;
+	JLabel lb_operacao, lb_valor;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelSuccess(final DefaultView df, String operacao, Float valor) {
+	public PanelSuccess(final DefaultView df) {
+		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -25,21 +28,21 @@ public class PanelSuccess extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JLabel lblNewLabel_1 = new JLabel("Operação "+operacao+" realizada com sucesso!");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.gridwidth = 2;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 0;
-		add(lblNewLabel_1, gbc_lblNewLabel_1);
+		lb_operacao = new JLabel("Operação [OPERAÇÃO] realizada com sucesso!");
+		GridBagConstraints gbc_lb_operacao = new GridBagConstraints();
+		gbc_lb_operacao.gridwidth = 2;
+		gbc_lb_operacao.insets = new Insets(0, 0, 5, 0);
+		gbc_lb_operacao.gridx = 0;
+		gbc_lb_operacao.gridy = 0;
+		add(lb_operacao, gbc_lb_operacao);
 		
-		JLabel lblNewLabel = new JLabel("Valor: R$ "+valor);
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 1;
-		add(lblNewLabel, gbc_lblNewLabel);
+		lb_valor = new JLabel("Valor: R$ [VALOR]");
+		GridBagConstraints gbc_lb_valor = new GridBagConstraints();
+		gbc_lb_valor.anchor = GridBagConstraints.WEST;
+		gbc_lb_valor.insets = new Insets(0, 0, 5, 5);
+		gbc_lb_valor.gridx = 0;
+		gbc_lb_valor.gridy = 1;
+		add(lb_valor, gbc_lb_valor);
 		
 		JButton btn_retornar = new JButton("Retornar");
 		GridBagConstraints gbc_btn_retornar = new GridBagConstraints();
@@ -56,5 +59,13 @@ public class PanelSuccess extends JPanel {
 		gbc_btn_imprimir.gridy = 9;
 		add(btn_imprimir, gbc_btn_imprimir);
 
+	}
+	
+	public void setValor(float valor){
+		lb_valor.setText("Valor: R$ "+valor);
+	}
+	
+	public void setOperacao(String operacao){
+		lb_operacao.setText("Operação "+operacao+" realizada com sucesso!");
 	}
 }
