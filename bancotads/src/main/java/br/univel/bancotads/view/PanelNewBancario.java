@@ -8,24 +8,26 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.JComboBox;
 
-public class PanelBancarioRegister extends JPanel {
+public class PanelNewBancario extends JPanel {
 	private JTextField tf_senhaoperacoes;
 	private JTextField tf_senhaacesso;
 	private JTextField tf_username;
 	private JTextField tf_idade;
 	private JTextField tf_nome;
+	private JTextField tf_cpf;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelBancarioRegister(final DefaultView df) {
+	public PanelNewBancario(final DefaultView df) {
 		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		JLabel lblNewLabel_4 = new JLabel("Nome");
@@ -49,13 +51,30 @@ public class PanelBancarioRegister extends JPanel {
 		add(tf_nome, gbc_tf_nome);
 		tf_nome.setColumns(10);
 		
+		JLabel lblGnero = new JLabel("Gênero");
+		GridBagConstraints gbc_lblGnero = new GridBagConstraints();
+		gbc_lblGnero.anchor = GridBagConstraints.WEST;
+		gbc_lblGnero.insets = new Insets(0, 0, 5, 5);
+		gbc_lblGnero.gridx = 0;
+		gbc_lblGnero.gridy = 3;
+		add(lblGnero, gbc_lblGnero);
+		
+		JComboBox cb_genero = new JComboBox();
+		GridBagConstraints gbc_cb_genero = new GridBagConstraints();
+		gbc_cb_genero.gridwidth = 4;
+		gbc_cb_genero.insets = new Insets(0, 0, 5, 5);
+		gbc_cb_genero.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cb_genero.gridx = 0;
+		gbc_cb_genero.gridy = 4;
+		add(cb_genero, gbc_cb_genero);
+		
 		JLabel lblNewLabel_3 = new JLabel("Data de Nascimento");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.gridwidth = 4;
 		gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_3.gridx = 0;
-		gbc_lblNewLabel_3.gridy = 3;
+		gbc_lblNewLabel_3.gridy = 5;
 		add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
 		tf_idade = new JTextField();
@@ -64,9 +83,28 @@ public class PanelBancarioRegister extends JPanel {
 		gbc_tf_idade.insets = new Insets(0, 0, 5, 0);
 		gbc_tf_idade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tf_idade.gridx = 0;
-		gbc_tf_idade.gridy = 4;
+		gbc_tf_idade.gridy = 6;
 		add(tf_idade, gbc_tf_idade);
 		tf_idade.setColumns(10);
+		
+		JLabel lblCpf = new JLabel("CPF");
+		GridBagConstraints gbc_lblCpf = new GridBagConstraints();
+		gbc_lblCpf.gridwidth = 4;
+		gbc_lblCpf.anchor = GridBagConstraints.WEST;
+		gbc_lblCpf.insets = new Insets(0, 0, 5, 0);
+		gbc_lblCpf.gridx = 0;
+		gbc_lblCpf.gridy = 7;
+		add(lblCpf, gbc_lblCpf);
+		
+		tf_cpf = new JTextField();
+		GridBagConstraints gbc_tf_cpf = new GridBagConstraints();
+		gbc_tf_cpf.gridwidth = 4;
+		gbc_tf_cpf.insets = new Insets(0, 0, 5, 0);
+		gbc_tf_cpf.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tf_cpf.gridx = 0;
+		gbc_tf_cpf.gridy = 8;
+		add(tf_cpf, gbc_tf_cpf);
+		tf_cpf.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Username");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -74,7 +112,7 @@ public class PanelBancarioRegister extends JPanel {
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_2.gridx = 0;
-		gbc_lblNewLabel_2.gridy = 5;
+		gbc_lblNewLabel_2.gridy = 9;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
 		tf_username = new JTextField();
@@ -83,7 +121,7 @@ public class PanelBancarioRegister extends JPanel {
 		gbc_tf_username.insets = new Insets(0, 0, 5, 0);
 		gbc_tf_username.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tf_username.gridx = 0;
-		gbc_tf_username.gridy = 6;
+		gbc_tf_username.gridy = 10;
 		add(tf_username, gbc_tf_username);
 		tf_username.setColumns(10);
 		
@@ -93,7 +131,7 @@ public class PanelBancarioRegister extends JPanel {
 		gbc_lblNewLabel.gridwidth = 2;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 7;
+		gbc_lblNewLabel.gridy = 11;
 		add(lblNewLabel, gbc_lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Senha Operações");
@@ -102,7 +140,7 @@ public class PanelBancarioRegister extends JPanel {
 		gbc_lblNewLabel_1.gridwidth = 2;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_1.gridx = 2;
-		gbc_lblNewLabel_1.gridy = 7;
+		gbc_lblNewLabel_1.gridy = 11;
 		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		tf_senhaacesso = new JTextField();
@@ -111,7 +149,7 @@ public class PanelBancarioRegister extends JPanel {
 		gbc_tf_senhaacesso.insets = new Insets(0, 0, 5, 5);
 		gbc_tf_senhaacesso.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tf_senhaacesso.gridx = 0;
-		gbc_tf_senhaacesso.gridy = 8;
+		gbc_tf_senhaacesso.gridy = 12;
 		add(tf_senhaacesso, gbc_tf_senhaacesso);
 		tf_senhaacesso.setColumns(10);
 		
@@ -121,7 +159,7 @@ public class PanelBancarioRegister extends JPanel {
 		gbc_tf_senhaoperacoes.gridwidth = 2;
 		gbc_tf_senhaoperacoes.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tf_senhaoperacoes.gridx = 2;
-		gbc_tf_senhaoperacoes.gridy = 8;
+		gbc_tf_senhaoperacoes.gridy = 12;
 		add(tf_senhaoperacoes, gbc_tf_senhaoperacoes);
 		tf_senhaoperacoes.setColumns(10);
 		
@@ -130,7 +168,7 @@ public class PanelBancarioRegister extends JPanel {
 		gbc_btn_confirme.anchor = GridBagConstraints.EAST;
 		gbc_btn_confirme.ipady = 20;
 		gbc_btn_confirme.gridx = 3;
-		gbc_btn_confirme.gridy = 9;
+		gbc_btn_confirme.gridy = 13;
 		add(btn_confirme, gbc_btn_confirme);
 
 	}

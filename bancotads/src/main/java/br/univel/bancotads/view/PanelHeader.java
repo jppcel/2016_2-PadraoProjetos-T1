@@ -36,7 +36,7 @@ public class PanelHeader extends JPanel {
 		JLabel lb_icone = new JLabel(icone);
 		GridBagConstraints gbc_lb_icone = new GridBagConstraints();
 		gbc_lb_icone.gridheight = 4;
-		gbc_lb_icone.insets = new Insets(0, 0, 5, 5);
+		gbc_lb_icone.insets = new Insets(5, 10, 5, 5);
 		gbc_lb_icone.gridx = 0;
 		gbc_lb_icone.gridy = 0;
 		add(lb_icone, gbc_lb_icone);

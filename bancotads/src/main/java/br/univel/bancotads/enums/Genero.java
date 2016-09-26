@@ -3,7 +3,7 @@ package br.univel.bancotads.enums;
 public enum Genero {
 	MASCULINO(1,"Masculino"),
 	FEMININO(2,"Feminino"),
-	NAODEFINIDO(3,"Não Definido");
+	NAO_DEFINIDO(3,"Não Definido");
 	
 	int id;
 	String genero;

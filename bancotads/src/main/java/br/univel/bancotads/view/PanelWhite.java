@@ -6,6 +6,11 @@ import java.awt.GridBagLayout;
 public class PanelWhite extends JPanel {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8294584221931770298L;
+
+	/**
 	 * Create the panel.
 	 */
 	public PanelWhite() {
@@ -15,7 +20,6 @@ public class PanelWhite extends JPanel {
 		gridBagLayout.columnWeights = new double[]{Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{Double.MIN_VALUE};
 		setLayout(gridBagLayout);
-		
 	}
 
 }
