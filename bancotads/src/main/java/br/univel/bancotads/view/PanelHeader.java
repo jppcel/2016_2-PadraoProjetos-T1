@@ -1,6 +1,7 @@
 package br.univel.bancotads.view;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import br.univel.bancotads.enums.TipoConta;
 
@@ -11,7 +12,14 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class PanelHeader extends JPanel {
 
@@ -19,7 +27,9 @@ public class PanelHeader extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 3379998260219697988L;
-	JLabel lb_BancoTads, lbl_data, lb_ag, lb_conta, lb_slogan, lb_saldo;
+	JLabel lb_BancoTads, lb_data, lb_ag, lb_conta, lb_slogan, lb_saldo;
+	Calendar cal;
+	StringBuilder sb;
 
 	/**
 	 * Create the panel.
@@ -51,14 +61,14 @@ public class PanelHeader extends JPanel {
 		add(lb_BancoTads, gbc_lb_BancoTads);
 		
 		
-		lbl_data = new JLabel(new Date().toLocaleString());
-		GridBagConstraints gbc_lbl_data = new GridBagConstraints();
-		gbc_lbl_data.ipadx = 10;
-		gbc_lbl_data.anchor = GridBagConstraints.EAST;
-		gbc_lbl_data.insets = new Insets(0, 0, 5, 0);
-		gbc_lbl_data.gridx = 4;
-		gbc_lbl_data.gridy = 0;
-		add(lbl_data, gbc_lbl_data);
+		lb_data = new JLabel(new Date().toString());
+		GridBagConstraints gbc_lb_data = new GridBagConstraints();
+		gbc_lb_data.ipadx = 10;
+		gbc_lb_data.anchor = GridBagConstraints.EAST;
+		gbc_lb_data.insets = new Insets(0, 0, 5, 0);
+		gbc_lb_data.gridx = 4;
+		gbc_lb_data.gridy = 0;
+		add(lb_data, gbc_lb_data);
 		
 		lb_ag = new JLabel("AG: [AGENCIA]");
 		GridBagConstraints gbc_lb_ag = new GridBagConstraints();
@@ -92,26 +102,58 @@ public class PanelHeader extends JPanel {
 		gbc_lb_saldo.gridx = 4;
 		gbc_lb_saldo.gridy = 3;
 		add(lb_saldo, gbc_lb_saldo);
+		
+		Timer time = new Timer(1000,ativar);
+		time.start(); 
 
 	}
 	
-	public void setAg(int ag){
-		lb_ag.setText("AG: " +ag);
+    ActionListener ativar = (
+        	new ActionListener(){
+        		public void actionPerformed(ActionEvent e){
+        			atualizar();
+        		}
+            }
+    );
+	
+	private void atualizar(){
+		cal = Calendar.getInstance();
+		sb = new StringBuilder();
+		sb.append(normalizarValores(cal.get(Calendar.DAY_OF_MONTH))).append("/").append(normalizarValores(cal.get(Calendar.MONTH)+1)).append("/").append(normalizarValores(cal.get(Calendar.YEAR)));
+		sb.append(" ").append(normalizarValores(cal.get(Calendar.HOUR_OF_DAY))).append(":").append(normalizarValores(cal.get(Calendar.MINUTE))).append(":").append(normalizarValores(cal.get(Calendar.SECOND)));
+		lb_data.setText(sb.toString());
 	}
 	
-	public void setConta(TipoConta tp, int conta){
-		lb_conta.setText(tp.getNome()+": "+conta);
+	private String normalizarValores(int i){
+		StringBuilder sb = new StringBuilder();
+		if(i < 10){
+			sb.append("0");
+		}
+		sb.append(i);
+		return sb.toString();
 	}
 	
-	public void setSaldo(float saldo){
-		lb_saldo.setText("Saldo: R$ "+saldo);
+	public void setAg(String string){
+		lb_ag.setText("AG: " +string);
 	}
 	
-	protected void setVisibleFields(boolean opcao){
+	public void setConta(TipoConta tp, String string){
+		lb_conta.setText(tp.getNome()+": "+string);
+	}
+	
+	public void setSaldo(BigDecimal bigDecimal){
+		lb_saldo.setText("Saldo: R$ "+bigDecimal.setScale(2, RoundingMode.HALF_EVEN));
+	}
+	
+	public void setVisibleFields(boolean opcao){
 		lb_ag.setVisible(opcao);
 		lb_conta.setVisible(opcao);
 		lb_saldo.setVisible(opcao);
-		lbl_data.setVisible(opcao);
+		lb_data.setVisible(opcao);
+	}
+	
+	public void setVisibleDate(){
+		lb_data.setVisible(true);
 	}
 
 }

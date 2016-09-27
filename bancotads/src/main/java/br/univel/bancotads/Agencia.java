@@ -1,10 +1,13 @@
 package br.univel.bancotads;
 
+import java.math.BigDecimal;
+
 public class Agencia {
 
 	private int id;
 	private String nome;
 	private String numeroAgencia;
+	private BigDecimal saldo;
 	
 	public int getId() {
 		return id;
@@ -23,6 +26,12 @@ public class Agencia {
 	}
 	public void setNumeroAgencia(String numeroAgencia) {
 		this.numeroAgencia = numeroAgencia;
+	}
+	public BigDecimal getSaldo() {
+		return saldo;
+	}
+	public void setSaldo(BigDecimal saldo) {
+		this.saldo = saldo;
 	}
 	
 }

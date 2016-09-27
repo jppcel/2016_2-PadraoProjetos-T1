@@ -10,10 +10,7 @@ import java.util.Map;
 
 import br.univel.bancotads.Conta;
 import br.univel.bancotads.DBConnection;
-import br.univel.bancotads.Pessoa;
-import br.univel.bancotads.Usuario;
 import br.univel.bancotads.enums.TipoConta;
-import br.univel.bancotads.enums.TipoUsuario;
 import br.univel.bancotads.interfaces.Dao;
 
 public class DaoConta implements Dao<Conta, Integer> {
@@ -24,10 +21,10 @@ public class DaoConta implements Dao<Conta, Integer> {
 			Connection c = DBConnection.openConnection();
 			sql.append("INSERT INTO conta (agencia, numeroConta, tipoConta, saldo, dataCriacao) values (?, ?, ?, 0, ?)");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setInt(0, t.getAgencia().getId());
-			ps.setString(1, t.getNumeroConta());
-			ps.setInt(2, t.getTipoConta().getId());
-			ps.setDate(3, new Date(new java.util.Date().getTime()));
+			ps.setInt(1, t.getAgencia().getId());
+			ps.setString(2, t.getNumeroConta());
+			ps.setInt(3, t.getTipoConta().getId());
+			ps.setDate(4, new Date(new java.util.Date().getTime()));
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -36,18 +33,7 @@ public class DaoConta implements Dao<Conta, Integer> {
 	}
 
 	public void update(Conta t, Integer k) {
-		StringBuilder sql = new StringBuilder();
-		try {
-			Connection c = DBConnection.openConnection();
-			sql.append("UPDATE conta SET tipoConta = ?, dataModificacao = ? WHERE id = ?");
-			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setInt(0, );
-			ps.setDate(1, new Date(new java.util.Date().getTime()));
-			ps.setInt(2, k);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		// sem uso
 	}
 
 	public void updateSaldo(Integer v, Integer k) {
@@ -56,8 +42,8 @@ public class DaoConta implements Dao<Conta, Integer> {
 			Connection c = DBConnection.openConnection();
 			sql.append("UPDATE conta SET saldo = ? WHERE id = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setInt(0, v);
-			ps.setInt(1, k);
+			ps.setInt(1, v);
+			ps.setInt(2, k);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -74,7 +60,7 @@ public class DaoConta implements Dao<Conta, Integer> {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT * FROM conta WHERE id = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setInt(0, k);
+			ps.setInt(1, k);
 			ps.executeQuery();
 			ResultSet rs = ps.getResultSet();
 			Conta C = new Conta();
@@ -82,9 +68,10 @@ public class DaoConta implements Dao<Conta, Integer> {
 				C.setId(rs.getInt("id"));
 				C.setAgencia(new DaoAgencia().search(rs.getInt("agencia")));
 				C.setNumeroConta(rs.getString("numeroConta"));
-				C.setTipoConta(TipoConta.values()[rs.getInt("tipoConta")]);
+				C.setTipoConta(TipoConta.values()[rs.getInt("tipoConta")-1]);
 				C.setSaldo(rs.getBigDecimal("saldo"));
 			}
+			rs.close();
 			return C;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -92,30 +79,25 @@ public class DaoConta implements Dao<Conta, Integer> {
 		return null;
 	}
 	
-	public Conta search(String username){
+	public Conta search(String numeroConta){
 		StringBuilder sql = new StringBuilder();
 		try {
 			Connection c = DBConnection.openConnection();
-			sql.append("SELECT * FROM usuario WHERE username = ?");
+			sql.append("SELECT * FROM conta WHERE numeroConta = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setString(0, username);
+			ps.setString(1, numeroConta);
 			ps.executeQuery();
-			Usuario u = new Usuario();
-			Pessoa p = new Pessoa();
-			Conta C = new Conta();
 			ResultSet rs = ps.getResultSet();
+			Conta C = new Conta();
 			while(rs.next()){
-				u.setIdUsuario(rs.getInt("id"));
-				p.setId(rs.getInt("pessoa"));
-				u.setPessoa(p);
-				u.setUsername(rs.getString("username"));
-				u.setPassword(rs.getString("password"));
-				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
-				C.setId(rs.getInt("conta"));
-				u.setConta(C);
-				u.setAtivo(rs.getBoolean("ativo"));
+				C.setId(rs.getInt("id"));
+				C.setAgencia(new DaoAgencia().search(rs.getInt("agencia")));
+				C.setNumeroConta(rs.getString("numeroConta"));
+				C.setTipoConta(TipoConta.values()[rs.getInt("tipoConta")-1]);
+				C.setSaldo(rs.getBigDecimal("saldo"));
 			}
-			return u;
+			rs.close();
+			return C;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -124,30 +106,25 @@ public class DaoConta implements Dao<Conta, Integer> {
 
 	public Map<Integer, Conta> search(String field, String text) {
 		StringBuilder sql = new StringBuilder();
-		Map<Integer, Usuario> m = new HashMap<Integer, Usuario>();
+		Map<Integer, Conta> m = new HashMap<Integer, Conta>();
 		try {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT * FROM usuario WHERE ").append(field).append(" = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setString(0, text);
+			ps.setString(1, text);
 			ps.executeQuery();
-			Usuario u = new Usuario();
-			Pessoa p = new Pessoa();
-			Conta C = new Conta();
 			ResultSet rs = ps.getResultSet();
+			Conta C = new Conta();
 			while(rs.next()){
-				u.clear();
-				u.setIdUsuario(rs.getInt("id"));
-				p.setId(rs.getInt("pessoa"));
-				u.setPessoa(p);
-				u.setUsername(rs.getString("username"));
-				u.setPassword(rs.getString("password"));
-				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
-				C.setId(rs.getInt("conta"));
-				u.setConta(C);
-				u.setAtivo(rs.getBoolean("ativo"));
-				m.put(rs.getInt("id"), u);
+				C.clear();
+				C.setId(rs.getInt("id"));
+				C.setAgencia(new DaoAgencia().search(rs.getInt("agencia")));
+				C.setNumeroConta(rs.getString("numeroConta"));
+				C.setTipoConta(TipoConta.values()[rs.getInt("tipoConta")-1]);
+				C.setSaldo(rs.getBigDecimal("saldo"));
+				m.put(rs.getInt("id"), C);
 			}
+			rs.close();
 			return m;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -157,29 +134,24 @@ public class DaoConta implements Dao<Conta, Integer> {
 
 	public Map<Integer, Conta> listAll() {
 		StringBuilder sql = new StringBuilder();
-		Map<Integer, Usuario> m = new HashMap<Integer, Usuario>();
+		Map<Integer, Conta> m = new HashMap<Integer, Conta>();
 		try {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT * FROM usuario");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
 			ps.executeQuery();
-			Usuario u = new Usuario();
-			Pessoa p = new Pessoa();
-			Conta C = new Conta();
 			ResultSet rs = ps.getResultSet();
+			Conta C = new Conta();
 			while(rs.next()){
-				u.clear();
-				u.setIdUsuario(rs.getInt("id"));
-				p.setId(rs.getInt("pessoa"));
-				u.setPessoa(p);
-				u.setUsername(rs.getString("username"));
-				u.setPassword(rs.getString("password"));
-				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
-				C.setId(rs.getInt("conta"));
-				u.setConta(C);
-				u.setAtivo(rs.getBoolean("ativo"));
-				m.put(rs.getInt("id"), u);
+				C.clear();
+				C.setId(rs.getInt("id"));
+				C.setAgencia(new DaoAgencia().search(rs.getInt("agencia")));
+				C.setNumeroConta(rs.getString("numeroConta"));
+				C.setTipoConta(TipoConta.values()[rs.getInt("tipoConta")-1]);
+				C.setSaldo(rs.getBigDecimal("saldo"));
+				m.put(rs.getInt("id"), C);
 			}
+			rs.close();
 			return m;
 		} catch (SQLException e) {
 			e.printStackTrace();

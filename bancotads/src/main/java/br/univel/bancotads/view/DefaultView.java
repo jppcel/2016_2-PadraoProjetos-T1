@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import br.univel.bancotads.DBCreator;
+import br.univel.bancotads.Login;
 import br.univel.bancotads.SoftwareProperties;
 
 import javax.swing.JMenuBar;
@@ -21,22 +22,24 @@ public class DefaultView extends JFrame {
 	private JPanel contentPane;
 	private JPanel cards;
 	private CardLayout cardlayout = new CardLayout();
-	DBCreator dbc = new DBCreator();
-	SoftwareProperties sp = new SoftwareProperties();
+	private DBCreator dbc = new DBCreator();
+	private SoftwareProperties sp = new SoftwareProperties();
+
+	private final PanelHeader panel_header;
+	private final PanelHomeClient panel_homeClient;
+	private final PanelPayment panel_payment;
+	private final PanelWithdrawalClient panel_withdrawClient;
+	private final PanelNewBancario panel_bancarioRegister;
+	private final PanelDepositClient panel_depositClient;
+	private final PanelHomeBancario panel_homeBancario;
+	private final PanelListAccounts panel_listAccounts;
+	private final PanelNewClient panel_newClient;
+	private final PanelSuccess panel_success;
+	private final PanelTransferClient panel_transferClient;
 	
-	final PanelHomeClient panel_homeClient;
-	final PanelPayment panel_payment;
-	final PanelWithdrawalClient panel_withdrawClient;
-	final PanelNewBancario panel_bancarioRegister;
-	final PanelDepositClient panel_depositClient;
-	final PanelHomeBancario panel_homeBancario;
-	final PanelListAccounts panel_listAccounts;
-	final PanelNewClient panel_newClient;
-	final PanelSuccess panel_success;
-	final PanelTransferClient panel_transferClient;
-	final PanelHeader panel_header;
+	private final LoginView login;
 	
-	final LoginView login;
+	private final Login l = new Login(this);
 
 	/**
 	 * Create the frame.
@@ -46,7 +49,7 @@ public class DefaultView extends JFrame {
 		
 		setTitle("Banco TADS");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 700, 532);
+		setBounds(100, 100, 800, 532);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -56,8 +59,8 @@ public class DefaultView extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		
 		panel_header = new PanelHeader();
+		panel_header.setVisibleFields(false);
 		contentPane.add(panel_header, BorderLayout.NORTH);
 		
 		cards = new JPanel();
@@ -100,9 +103,7 @@ public class DefaultView extends JFrame {
 
 		cardlayout.show(cards, "white");
 		
-		panel_header.setVisibleFields(false);
-		
-		login = new LoginView();
+		login = new LoginView(this);
 		login.setVisible(true);
 		
 		
@@ -110,6 +111,14 @@ public class DefaultView extends JFrame {
 	
 	public void showPanel(String what){
 		cardlayout.show(cards, what);
+	}
+
+	public Login getL() {
+		return l;
+	}
+	
+	public PanelHeader getPanelHeader() {
+		return panel_header;
 	}
 
 }

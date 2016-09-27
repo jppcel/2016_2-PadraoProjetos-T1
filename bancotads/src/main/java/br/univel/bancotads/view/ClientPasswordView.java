@@ -1,8 +1,5 @@
 package br.univel.bancotads.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -12,41 +9,28 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ClientPasswordView extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7334626293156765251L;
 	private JPanel contentPane;
 	private JPasswordField textField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ClientPasswordView frame = new ClientPasswordView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 	private void addValue(int value){
 		if(this.textField.getDocument().getLength() < 6){
-			this.textField.setText(this.textField.getText() + value);
+			this.textField.setText(String.copyValueOf(this.textField.getPassword()) + value);
 		}
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public ClientPasswordView() {
+	public ClientPasswordView(final DefaultView dv) {
 		setTitle("Senha Operações - Banco TADS");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 418, 144);

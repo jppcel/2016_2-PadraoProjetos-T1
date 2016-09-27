@@ -1,5 +1,10 @@
 package br.univel.bancotads;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import br.univel.bancotads.enums.TipoUsuario;
 
 public class Usuario {
@@ -36,7 +41,39 @@ public class Usuario {
 		this.password = password;
 	}
 	public void setPassword(String password, boolean t){
-		
+		if(!username.isEmpty()){
+			if(tu.getId() == 1){
+				MessageDigest m;
+				StringBuilder sb = new StringBuilder();
+				sb.append(username).append(password);
+				try {
+					m = MessageDigest.getInstance("SHA-1");
+					m.reset();
+				    m.update(password.getBytes("UTF-8"));
+				    this.password = new BigInteger(1,m.digest()).toString(16);
+				} catch (NoSuchAlgorithmException e) {
+					e.printStackTrace();
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+			}else if(tu.getId() == 2){
+				MessageDigest m;
+				try {
+					m = MessageDigest.getInstance("MD5");
+					m.reset();
+				    m.update(password.getBytes("UTF-8"),0,password.length());
+					this.password = new BigInteger(1,m.digest()).toString(16);
+				} catch (NoSuchAlgorithmException e) {
+					e.printStackTrace();
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+			}else{
+				throw new RuntimeException("O Tipo de Usuário deve ser setado.");
+			}
+		}else{
+			throw new RuntimeException("O usuário precisa não pode ser nulo!");
+		}
 	}
 	public TipoUsuario getTu() {
 		return tu;

@@ -17,8 +17,27 @@ public class DaoAgencia implements Dao<Agencia, Integer> {
 		// Não é necessário
 	}
 
-	public void update(Agencia t, Integer k) {
-		// Não é necessário
+	public void update(Agencia t, Integer k){
+		StringBuilder sql = new StringBuilder();
+		try {
+			Connection c = DBConnection.openConnection();
+			sql.append("UPDATE agencia SET saldo = ? WHERE id = ?");
+			PreparedStatement ps = c.prepareStatement(sql.toString());
+			ps.setBigDecimal(1, t.getSaldo());
+			ps.setInt(2, k);
+			ps.executeUpdate();
+			Agencia a = new Agencia();
+			ResultSet rs = ps.getResultSet();
+			while(rs.next()){
+				a.setId(rs.getInt("id"));
+				a.setNome(rs.getString("name"));
+				a.setNumeroAgencia(rs.getString("numeroAgencia"));
+				a.setSaldo(rs.getBigDecimal("saldo"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void delete(Integer k) {
@@ -31,7 +50,7 @@ public class DaoAgencia implements Dao<Agencia, Integer> {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT * FROM agencia WHERE id = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setInt(0, k);
+			ps.setInt(1, k);
 			ps.executeQuery();
 			Agencia a = new Agencia();
 			ResultSet rs = ps.getResultSet();
@@ -39,7 +58,9 @@ public class DaoAgencia implements Dao<Agencia, Integer> {
 				a.setId(rs.getInt("id"));
 				a.setNome(rs.getString("name"));
 				a.setNumeroAgencia(rs.getString("numeroAgencia"));
+				a.setSaldo(rs.getBigDecimal("saldo"));
 			}
+			rs.close();
 			return a;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,7 +74,7 @@ public class DaoAgencia implements Dao<Agencia, Integer> {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT * FROM agencia WHERE numeroAgencia = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setString(0, numeroAgencia);
+			ps.setString(1, numeroAgencia);
 			ps.executeQuery();
 			Agencia a = new Agencia();
 			ResultSet rs = ps.getResultSet();
@@ -61,7 +82,9 @@ public class DaoAgencia implements Dao<Agencia, Integer> {
 				a.setId(rs.getInt("id"));
 				a.setNome(rs.getString("name"));
 				a.setNumeroAgencia(rs.getString("numeroAgencia"));
+				a.setSaldo(rs.getBigDecimal("saldo"));
 			}
+			rs.close();
 			return a;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -83,8 +106,10 @@ public class DaoAgencia implements Dao<Agencia, Integer> {
 				a.setId(rs.getInt("id"));
 				a.setNome(rs.getString("name"));
 				a.setNumeroAgencia(rs.getString("numeroAgencia"));
+				a.setSaldo(rs.getBigDecimal("saldo"));
 				m.put(rs.getInt("id"), a);
 			}
+			rs.close();
 			return m;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,7 +118,6 @@ public class DaoAgencia implements Dao<Agencia, Integer> {
 	}
 
 	public Map<Integer, Agencia> search(String field, String text) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

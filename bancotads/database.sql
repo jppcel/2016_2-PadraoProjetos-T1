@@ -22,6 +22,7 @@ CREATE TABLE pessoa (
 	born date not null,
 	cpf varchar(14) not null,
 	genero int not null,
+	dataCadastro varchar(150) not null,
 	PRIMARY KEY(id),
 	FOREIGN KEY(genero) references genero(id)
 );
@@ -30,6 +31,7 @@ CREATE TABLE agencia (
 	id int auto_increment not null,
 	name varchar(100) not null,
 	numeroAgencia varchar(5) not null,
+	saldo double not null,
 	PRIMARY KEY(id)
 );
 
@@ -51,6 +53,7 @@ CREATE TABLE usuario (
 	pessoa int not null,
 	username varchar(100) not null,
 	password varchar(150) not null,
+	passwordOperacoes varchar(150) not null,
 	tipoUsuario int not null,
 	conta int null,
 	dataCriacao datetime not null,

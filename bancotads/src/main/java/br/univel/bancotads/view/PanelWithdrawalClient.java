@@ -7,14 +7,21 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.math.BigDecimal;
 
 public class PanelWithdrawalClient extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5590525961143815896L;
 	private JTextField tf_valor;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelWithdrawalClient(final DefaultView df) {
+	public PanelWithdrawalClient(final DefaultView dv) {
 		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{175, 175, 175, 175, 0};
@@ -24,6 +31,12 @@ public class PanelWithdrawalClient extends JPanel {
 		setLayout(gridBagLayout);
 		
 		JButton bnt_50 = new JButton("R$ 50,00");
+		bnt_50.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				efetuaSaque(new BigDecimal(50), dv);
+			}
+		});
 		GridBagConstraints gbc_bnt_50 = new GridBagConstraints();
 		gbc_bnt_50.ipady = 30;
 		gbc_bnt_50.fill = GridBagConstraints.HORIZONTAL;
@@ -92,4 +105,8 @@ public class PanelWithdrawalClient extends JPanel {
 
 	}
 
+	private void efetuaSaque(BigDecimal valor, final DefaultView dv){
+		ClientPasswordView cpv = new ClientPasswordView(dv);
+		cpv.setVisible(true);
+	}
 }

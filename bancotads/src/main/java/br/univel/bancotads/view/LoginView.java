@@ -1,18 +1,25 @@
 package br.univel.bancotads.view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+
+import br.univel.bancotads.Login;
+
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class LoginView extends JFrame {
 
@@ -22,29 +29,14 @@ public class LoginView extends JFrame {
 	private static final long serialVersionUID = -5320876147202606774L;
 	private JPanel contentPane;
 	private JTextField tf_usuario;
-	private JTextField tf_senha;
+	private JPasswordField tf_senha;
 	private JLabel lblNewLabel_1;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginView frame = new LoginView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public LoginView() {
+	public LoginView(final DefaultView dv) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginView.class.getResource("/org/freedesktop/tango/22x22/apps/system-users.png")));
 		setResizable(false);
 		setAlwaysOnTop(true);
@@ -70,6 +62,14 @@ public class LoginView extends JFrame {
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		tf_usuario = new JTextField();
+		tf_usuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					makeLogin(dv);
+				}
+			}
+		});
 		tf_usuario.setToolTipText("Usuário");
 		GridBagConstraints gbc_tf_usuario = new GridBagConstraints();
 		gbc_tf_usuario.insets = new Insets(0, 0, 5, 0);
@@ -87,7 +87,15 @@ public class LoginView extends JFrame {
 		gbc_lblNewLabel.gridy = 2;
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 		
-		tf_senha = new JTextField();
+		tf_senha = new JPasswordField();
+		tf_senha.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER){
+					makeLogin(dv);
+				}
+			}
+		});
 		tf_senha.setToolTipText("Senha");
 		GridBagConstraints gbc_tf_senha = new GridBagConstraints();
 		gbc_tf_senha.insets = new Insets(0, 0, 5, 0);
@@ -98,10 +106,44 @@ public class LoginView extends JFrame {
 		tf_senha.setColumns(10);
 		
 		JButton btn_login = new JButton("Login");
+		btn_login.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				makeLogin(dv);
+			}
+		});
 		GridBagConstraints gbc_btn_login = new GridBagConstraints();
 		gbc_btn_login.anchor = GridBagConstraints.EAST;
 		gbc_btn_login.gridx = 0;
 		gbc_btn_login.gridy = 4;
 		contentPane.add(btn_login, gbc_btn_login);
+	}
+	
+	private void makeLogin(final DefaultView dv){
+		if(!tf_usuario.getText().isEmpty()){
+			if(!String.copyValueOf(tf_senha.getPassword()).isEmpty()){
+				final Login l = dv.getL();
+				l.setLogin(tf_usuario.getText());
+				if(l.hasLogin()){
+					l.setSenha(String.copyValueOf(tf_senha.getPassword()));
+					if(!l.checkSenha()){
+						tf_usuario.setText("");
+						tf_senha.setText("");
+						JOptionPane.showMessageDialog(dv, "Usuário ou senha incorretos!");
+					}else{
+						l.setInitialPanel();
+						setVisible(false);
+					}
+				}else{
+					tf_usuario.setText("");
+					tf_senha.setText("");
+					JOptionPane.showMessageDialog(dv, "Usuário inexistente!");
+				}
+			}else{
+				JOptionPane.showMessageDialog(dv, "O campo de senha é obrigatório!");
+			}
+		}else{
+			JOptionPane.showMessageDialog(dv, "O campo de login é obrigatório!");
+		}
 	}
 }

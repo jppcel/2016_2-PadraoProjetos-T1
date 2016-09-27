@@ -58,5 +58,13 @@ public class Conta {
 		this.dataCriacao = dataCriacao;
 	}
 	
-	
+	public void clear(){
+		id = 0;
+		agencia = null;
+		numeroConta = null;
+		usuario = null;
+		tipoConta = null;
+		saldo = null;
+		dataCriacao = null;
+	}
 }

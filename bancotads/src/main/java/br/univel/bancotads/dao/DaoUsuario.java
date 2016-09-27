@@ -8,9 +8,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.univel.bancotads.Conta;
 import br.univel.bancotads.DBConnection;
-import br.univel.bancotads.Pessoa;
 import br.univel.bancotads.Usuario;
 import br.univel.bancotads.enums.TipoUsuario;
 import br.univel.bancotads.interfaces.Dao;
@@ -23,17 +21,16 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 			Connection c = DBConnection.openConnection();
 			sql.append("INSERT INTO usuario (pessoa, username, password, tipoUsuario, conta, dataCriacao, ativo) values (?, ?, ?, ?, ?, ?, true)");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setInt(0, t.getPessoa().getId());
-			ps.setString(1, t.getUsername());
-			ps.setString(2, t.getPassword());
-			ps.setInt(3, t.getTu().getId());
-			ps.setInt(4, t.getConta().getId());
-			ps.setDate(5, new Date(new java.util.Date().getTime()));
+			ps.setInt(1, t.getPessoa().getId());
+			ps.setString(2, t.getUsername());
+			ps.setString(3, t.getPassword());
+			ps.setInt(4, t.getTu().getId());
+			ps.setInt(5, t.getConta().getId());
+			ps.setDate(6, new Date(new java.util.Date().getTime()));
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	public void update(Usuario t, Integer k) {
@@ -42,13 +39,13 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 			Connection c = DBConnection.openConnection();
 			sql.append("UPDATE usuario SET pessoa = ?, username = ?, password = ?, tipoUsuario = ?, conta = ?, dataModificacao = ? WHERE id = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setInt(0, t.getPessoa().getId());
-			ps.setString(1, t.getUsername());
-			ps.setString(2, t.getPassword());
-			ps.setInt(3, t.getTu().getId());
-			ps.setInt(4, t.getConta().getId());
-			ps.setDate(5, new Date(new java.util.Date().getTime()));
-			ps.setInt(6, k);
+			ps.setInt(1, t.getPessoa().getId());
+			ps.setString(2, t.getUsername());
+			ps.setString(3, t.getPassword());
+			ps.setInt(4, t.getTu().getId());
+			ps.setInt(5, t.getConta().getId());
+			ps.setDate(6, new Date(new java.util.Date().getTime()));
+			ps.setInt(7, k);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -79,8 +76,8 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 			Connection c = DBConnection.openConnection();
 			sql.append("UPDATE usuario SET ativo = ? WHERE id = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setBoolean(0, true);
-			ps.setInt(1, k);
+			ps.setBoolean(1, true);
+			ps.setInt(2, k);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,23 +90,21 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT * FROM usuario WHERE id = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setInt(0, k);
+			ps.setInt(1, k);
 			ps.executeQuery();
 			Usuario u = new Usuario();
-			Pessoa p = new Pessoa();
-			Conta C = new Conta();
+			DaoPessoa daop = new DaoPessoa();
 			ResultSet rs = ps.getResultSet();
 			while(rs.next()){
 				u.setIdUsuario(rs.getInt("id"));
-				p.setId(rs.getInt("pessoa"));
-				u.setPessoa(p);
+				u.setPessoa(daop.search(rs.getInt("pessoa")));
 				u.setUsername(rs.getString("username"));
 				u.setPassword(rs.getString("password"));
 				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
-				C.setId(rs.getInt("conta"));
-				u.setConta(C);
+				u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
 			}
+			rs.close();
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -123,23 +118,21 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT * FROM usuario WHERE username = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setString(0, username);
+			ps.setString(1, username);
 			ps.executeQuery();
 			Usuario u = new Usuario();
-			Pessoa p = new Pessoa();
-			Conta C = new Conta();
+			DaoPessoa daop = new DaoPessoa();
 			ResultSet rs = ps.getResultSet();
 			while(rs.next()){
 				u.setIdUsuario(rs.getInt("id"));
-				p.setId(rs.getInt("pessoa"));
-				u.setPessoa(p);
+				u.setPessoa(daop.search(rs.getInt("pessoa")));
 				u.setUsername(rs.getString("username"));
 				u.setPassword(rs.getString("password"));
-				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
-				C.setId(rs.getInt("conta"));
-				u.setConta(C);
+				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")-1]);
+				u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
 			}
+			rs.close();
 			return u;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -154,25 +147,23 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT * FROM usuario WHERE ").append(field).append(" = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setString(0, text);
+			ps.setString(1, text);
 			ps.executeQuery();
 			Usuario u = new Usuario();
-			Pessoa p = new Pessoa();
-			Conta C = new Conta();
+			DaoPessoa daop = new DaoPessoa();
 			ResultSet rs = ps.getResultSet();
 			while(rs.next()){
 				u.clear();
 				u.setIdUsuario(rs.getInt("id"));
-				p.setId(rs.getInt("pessoa"));
-				u.setPessoa(p);
+				u.setPessoa(daop.search(rs.getInt("pessoa")));
 				u.setUsername(rs.getString("username"));
 				u.setPassword(rs.getString("password"));
 				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
-				C.setId(rs.getInt("conta"));
-				u.setConta(C);
+				u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
 				m.put(rs.getInt("id"), u);
 			}
+			rs.close();
 			return m;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -189,22 +180,20 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 			PreparedStatement ps = c.prepareStatement(sql.toString());
 			ps.executeQuery();
 			Usuario u = new Usuario();
-			Pessoa p = new Pessoa();
-			Conta C = new Conta();
+			DaoPessoa daop = new DaoPessoa();
 			ResultSet rs = ps.getResultSet();
 			while(rs.next()){
 				u.clear();
 				u.setIdUsuario(rs.getInt("id"));
-				p.setId(rs.getInt("pessoa"));
-				u.setPessoa(p);
+				u.setPessoa(daop.search(rs.getInt("pessoa")));
 				u.setUsername(rs.getString("username"));
 				u.setPassword(rs.getString("password"));
 				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
-				C.setId(rs.getInt("conta"));
-				u.setConta(C);
+				u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
 				m.put(rs.getInt("id"), u);
 			}
+			rs.close();
 			return m;
 		} catch (SQLException e) {
 			e.printStackTrace();
