@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -49,6 +50,12 @@ public class PanelWithdrawalClient extends JPanel {
 		add(bnt_50, gbc_bnt_50);
 		
 		JButton btn_300 = new JButton("R$ 300,00");
+		btn_300.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				efetuaSaque(new BigDecimal(300), dv);
+			}
+		});
 		GridBagConstraints gbc_btn_300 = new GridBagConstraints();
 		gbc_btn_300.ipady = 30;
 		gbc_btn_300.fill = GridBagConstraints.HORIZONTAL;
@@ -59,6 +66,12 @@ public class PanelWithdrawalClient extends JPanel {
 		add(btn_300, gbc_btn_300);
 		
 		JButton btn_100 = new JButton("R$ 100,00");
+		btn_100.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				efetuaSaque(new BigDecimal(100), dv);
+			}
+		});
 		GridBagConstraints gbc_btn_100 = new GridBagConstraints();
 		gbc_btn_100.ipady = 30;
 		gbc_btn_100.fill = GridBagConstraints.HORIZONTAL;
@@ -69,6 +82,12 @@ public class PanelWithdrawalClient extends JPanel {
 		add(btn_100, gbc_btn_100);
 		
 		JButton btn_500 = new JButton("R$ 500,00");
+		btn_500.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				efetuaSaque(new BigDecimal(500), dv);
+			}
+		});
 		GridBagConstraints gbc_btn_500 = new GridBagConstraints();
 		gbc_btn_500.ipady = 30;
 		gbc_btn_500.fill = GridBagConstraints.HORIZONTAL;
@@ -79,6 +98,12 @@ public class PanelWithdrawalClient extends JPanel {
 		add(btn_500, gbc_btn_500);
 		
 		JButton btn_200 = new JButton("R$ 200,00");
+		btn_200.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				efetuaSaque(new BigDecimal(200), dv);
+			}
+		});
 		GridBagConstraints gbc_btn_200 = new GridBagConstraints();
 		gbc_btn_200.ipady = 30;
 		gbc_btn_200.fill = GridBagConstraints.HORIZONTAL;
@@ -98,6 +123,12 @@ public class PanelWithdrawalClient extends JPanel {
 		tf_valor.setColumns(10);
 		
 		JButton btn_sacar = new JButton("Sacar");
+		btn_sacar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				efetuaSaque(new BigDecimal(tf_valor.getText()), dv);
+			}
+		});
 		GridBagConstraints gbc_btn_sacar = new GridBagConstraints();
 		gbc_btn_sacar.ipady = 30;
 		gbc_btn_sacar.fill = GridBagConstraints.HORIZONTAL;
@@ -109,6 +140,8 @@ public class PanelWithdrawalClient extends JPanel {
 
 	private void efetuaSaque(BigDecimal valor, final DefaultView dv){
 		ClientPasswordView cpv = new ClientPasswordView(dv);
+		cpv.setOperacao("SAQUE: R$ "+valor.setScale(2, RoundingMode.HALF_EVEN));
+		dv.setEnabled(false);
 		cpv.setVisible(true);
 	}
 }
