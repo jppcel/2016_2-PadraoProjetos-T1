@@ -31,6 +31,7 @@ CREATE TABLE agencia (
 	id int auto_increment not null,
 	name varchar(100) not null,
 	numeroAgencia varchar(5) not null,
+	ultimaConta varchar(8) null,
 	saldo double not null,
 	PRIMARY KEY(id)
 );
