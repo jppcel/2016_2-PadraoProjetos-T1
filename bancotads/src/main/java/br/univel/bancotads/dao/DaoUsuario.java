@@ -19,14 +19,15 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 		StringBuilder sql = new StringBuilder();
 		try {
 			Connection c = DBConnection.openConnection();
-			sql.append("INSERT INTO usuario (pessoa, username, password, tipoUsuario, conta, dataCriacao, ativo) values (?, ?, ?, ?, ?, ?, true)");
+			sql.append("INSERT INTO usuario (pessoa, username, password, passwordOperacoes, tipoUsuario, conta, dataCriacao, ativo) values (?, ?, ?, ?, ?, ?, true)");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
 			ps.setInt(1, t.getPessoa().getId());
 			ps.setString(2, t.getUsername());
 			ps.setString(3, t.getPassword());
-			ps.setInt(4, t.getTu().getId());
-			ps.setInt(5, t.getConta().getId());
-			ps.setDate(6, new Date(new java.util.Date().getTime()));
+			ps.setString(4, t.getPasswordOperacoes());
+			ps.setInt(5, t.getTu().getId());
+			ps.setInt(6, t.getConta().getId());
+			ps.setDate(7, new Date(new java.util.Date().getTime()));
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -37,15 +38,16 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 		StringBuilder sql = new StringBuilder();
 		try {
 			Connection c = DBConnection.openConnection();
-			sql.append("UPDATE usuario SET pessoa = ?, username = ?, password = ?, tipoUsuario = ?, conta = ?, dataModificacao = ? WHERE id = ?");
+			sql.append("UPDATE usuario SET pessoa = ?, username = ?, password = ?, passwordOperacoes = ?, tipoUsuario = ?, conta = ?, dataModificacao = ? WHERE id = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
 			ps.setInt(1, t.getPessoa().getId());
 			ps.setString(2, t.getUsername());
 			ps.setString(3, t.getPassword());
-			ps.setInt(4, t.getTu().getId());
-			ps.setInt(5, t.getConta().getId());
-			ps.setDate(6, new Date(new java.util.Date().getTime()));
-			ps.setInt(7, k);
+			ps.setString(4, t.getPasswordOperacoes());
+			ps.setInt(5, t.getTu().getId());
+			ps.setInt(6, t.getConta().getId());
+			ps.setDate(7, new Date(new java.util.Date().getTime()));
+			ps.setInt(8, k);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -100,6 +102,7 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 				u.setPessoa(daop.search(rs.getInt("pessoa")));
 				u.setUsername(rs.getString("username"));
 				u.setPassword(rs.getString("password"));
+				u.setPasswordOperacoes(rs.getString("passwordOperacoes"));
 				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
 				u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
@@ -128,6 +131,7 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 				u.setPessoa(daop.search(rs.getInt("pessoa")));
 				u.setUsername(rs.getString("username"));
 				u.setPassword(rs.getString("password"));
+				u.setPasswordOperacoes(rs.getString("passwordOperacoes"));
 				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")-1]);
 				u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
@@ -158,6 +162,7 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 				u.setPessoa(daop.search(rs.getInt("pessoa")));
 				u.setUsername(rs.getString("username"));
 				u.setPassword(rs.getString("password"));
+				u.setPasswordOperacoes(rs.getString("passwordOperacoes"));
 				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
 				u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
@@ -188,6 +193,7 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 				u.setPessoa(daop.search(rs.getInt("pessoa")));
 				u.setUsername(rs.getString("username"));
 				u.setPassword(rs.getString("password"));
+				u.setPasswordOperacoes(rs.getString("passwordOperacoes"));
 				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
 				u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));

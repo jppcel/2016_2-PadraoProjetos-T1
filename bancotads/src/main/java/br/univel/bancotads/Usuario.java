@@ -12,6 +12,7 @@ public class Usuario {
 	private Pessoa pessoa;
 	private String username;
 	private String password;
+	private String passwordOperacoes;
 	private TipoUsuario tu;
 	private Conta conta;
 	private Boolean ativo;
@@ -102,6 +103,14 @@ public class Usuario {
 		}
 	}
 	
+	public boolean checkSenhaOperacoes(String senha){
+		if(password.equals(senha)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	public void clear(){
 		idUsuario = 0;
 		pessoa = null;
@@ -110,5 +119,11 @@ public class Usuario {
 		tu = null;
 		conta = null;
 		ativo = null;
+	}
+	public String getPasswordOperacoes() {
+		return passwordOperacoes;
+	}
+	public void setPasswordOperacoes(String passwordOperacoes) {
+		this.passwordOperacoes = passwordOperacoes;
 	}
 }

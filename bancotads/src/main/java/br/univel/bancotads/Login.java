@@ -51,7 +51,6 @@ public class Login {
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
-				System.out.println(this.senha);
 			}else if(u.getTu().getId() == 2){
 				MessageDigest m;
 				try {
@@ -64,7 +63,6 @@ public class Login {
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
-				System.out.println(this.senha);
 			}else{
 				throw new RuntimeException("O Tipo de Usuário deve ser setado.");
 			}
@@ -104,6 +102,39 @@ public class Login {
 			ph.setVisibleDate();
 			dv.showPanel("homeBancario");
 		}
+	}
+	
+	public void checkSenhaOperacoes(String senha){
+		if(u.getTu().getId() == 1){
+			MessageDigest m;
+			StringBuilder sb = new StringBuilder();
+			sb.append(u.getUsername()).append(senha);
+			try {
+				m = MessageDigest.getInstance("SHA-1");
+				m.reset();
+			    m.update(senha.getBytes("UTF-8"));
+				senha = new BigInteger(1,m.digest()).toString(16);
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}else if(u.getTu().getId() == 2){
+			MessageDigest m;
+			try {
+				m = MessageDigest.getInstance("MD5");
+				m.reset();
+			    m.update(senha.getBytes("UTF-8"),0,senha.length());
+				senha = new BigInteger(1,m.digest()).toString(16);
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}else{
+			throw new RuntimeException("O Tipo de Usuário deve ser setado.");
+		}
+		u.checkSenhaOperacoes(senha);
 	}
 	
 }

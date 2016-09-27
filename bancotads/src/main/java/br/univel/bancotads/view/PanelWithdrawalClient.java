@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PanelWithdrawalClient extends JPanel {
 	/**
@@ -31,9 +33,9 @@ public class PanelWithdrawalClient extends JPanel {
 		setLayout(gridBagLayout);
 		
 		JButton bnt_50 = new JButton("R$ 50,00");
-		bnt_50.addKeyListener(new KeyAdapter() {
+		bnt_50.addMouseListener(new MouseAdapter() {
 			@Override
-			public void keyReleased(KeyEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				efetuaSaque(new BigDecimal(50), dv);
 			}
 		});
