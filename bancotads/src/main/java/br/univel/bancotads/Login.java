@@ -44,7 +44,7 @@ public class Login {
 				try {
 					m = MessageDigest.getInstance("SHA-1");
 					m.reset();
-				    m.update(senha.getBytes("UTF-8"));
+				    m.update(sb.toString().getBytes("UTF-8"));
 					this.senha = new BigInteger(1,m.digest()).toString(16);
 				} catch (NoSuchAlgorithmException e) {
 					e.printStackTrace();
@@ -104,7 +104,7 @@ public class Login {
 		}
 	}
 	
-	public void checkSenhaOperacoes(String senha){
+	public boolean checkSenhaOperacoes(String senha){
 		if(u.getTu().getId() == 1){
 			MessageDigest m;
 			StringBuilder sb = new StringBuilder();
@@ -112,7 +112,7 @@ public class Login {
 			try {
 				m = MessageDigest.getInstance("SHA-1");
 				m.reset();
-			    m.update(senha.getBytes("UTF-8"));
+			    m.update(sb.toString().getBytes("UTF-8"));
 				senha = new BigInteger(1,m.digest()).toString(16);
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
@@ -134,7 +134,7 @@ public class Login {
 		}else{
 			throw new RuntimeException("O Tipo de Usuário deve ser setado.");
 		}
-		u.checkSenhaOperacoes(senha);
+		return u.checkSenhaOperacoes(senha);
 	}
 	
 }

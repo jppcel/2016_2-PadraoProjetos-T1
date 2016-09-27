@@ -50,7 +50,7 @@ public class Usuario {
 				try {
 					m = MessageDigest.getInstance("SHA-1");
 					m.reset();
-				    m.update(password.getBytes("UTF-8"));
+				    m.update(sb.toString().getBytes("UTF-8"));
 				    this.password = new BigInteger(1,m.digest()).toString(16);
 				} catch (NoSuchAlgorithmException e) {
 					e.printStackTrace();
@@ -94,6 +94,12 @@ public class Usuario {
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
+	public String getPasswordOperacoes() {
+		return passwordOperacoes;
+	}
+	public void setPasswordOperacoes(String passwordOperacoes) {
+		this.passwordOperacoes = passwordOperacoes;
+	}
 	
 	public boolean checkSenha(String senha){
 		if(password.equals(senha)){
@@ -119,11 +125,5 @@ public class Usuario {
 		tu = null;
 		conta = null;
 		ativo = null;
-	}
-	public String getPasswordOperacoes() {
-		return passwordOperacoes;
-	}
-	public void setPasswordOperacoes(String passwordOperacoes) {
-		this.passwordOperacoes = passwordOperacoes;
 	}
 }
