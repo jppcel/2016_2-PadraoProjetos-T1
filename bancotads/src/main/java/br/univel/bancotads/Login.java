@@ -119,6 +119,7 @@ public class Login {
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
+			System.out.println(senha);
 		}else if(u.getTu().getId() == 2){
 			MessageDigest m;
 			try {

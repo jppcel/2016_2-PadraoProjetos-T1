@@ -38,7 +38,6 @@ public class LoginView extends JFrame {
 	 */
 	public LoginView(final DefaultView dv) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginView.class.getResource("/org/freedesktop/tango/22x22/apps/system-users.png")));
-		setResizable(false);
 		setAlwaysOnTop(true);
 		setTitle("Login - Banco TADS");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

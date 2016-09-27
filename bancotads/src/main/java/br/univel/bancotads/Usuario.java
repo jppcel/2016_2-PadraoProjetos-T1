@@ -110,7 +110,7 @@ public class Usuario {
 	}
 	
 	public boolean checkSenhaOperacoes(String senha){
-		if(password.equals(senha)){
+		if(passwordOperacoes.equals(senha)){
 			return true;
 		}else{
 			return false;
