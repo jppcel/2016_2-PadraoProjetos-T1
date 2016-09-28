@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PanelHomeBancario extends JPanel {
 
@@ -25,6 +27,11 @@ public class PanelHomeBancario extends JPanel {
 		setLayout(gridBagLayout);
 		
 		JButton btn_1 = new JButton("1 - Informações de Contas");
+		btn_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				df.showPanel("accounts");
+			}
+		});
 		GridBagConstraints gbc_btn_1 = new GridBagConstraints();
 		gbc_btn_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btn_1.ipady = 30;

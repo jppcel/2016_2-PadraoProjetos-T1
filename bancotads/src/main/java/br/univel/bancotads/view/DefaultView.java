@@ -36,6 +36,7 @@ public class DefaultView extends JFrame {
 	private final PanelNewClient panel_newClient;
 	private final PanelSuccess panel_success;
 	private final PanelTransferClient panel_transferClient;
+	private final PanelAccounts panel_accounts;
 	
 	private final LoginView login;
 	
@@ -97,9 +98,11 @@ public class DefaultView extends JFrame {
 		panel_withdrawClient = new PanelWithdrawalClient(this);
 		cards.add(panel_withdrawClient, "withdrawal");
 		
+		panel_accounts = new PanelAccounts(this);
+		cards.add(panel_accounts, "accounts");
+		
 		PanelWhite panel_white = new PanelWhite();
 		cards.add(panel_white, "white");
-		
 
 		cardlayout.show(cards, "white");
 		

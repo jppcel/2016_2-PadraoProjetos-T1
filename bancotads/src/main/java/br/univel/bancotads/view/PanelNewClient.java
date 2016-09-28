@@ -135,7 +135,7 @@ public class PanelNewClient extends JPanel {
 		tf_senhaoperacoes.setColumns(10);
 		
 		JButton btn_confirme = new JButton("Confirme");
-		add(btn_confirme, "8, 28, right, center");
+		add(btn_confirme, "8, 28, center, center");
 
 	}
 
