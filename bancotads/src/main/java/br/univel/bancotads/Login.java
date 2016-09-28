@@ -15,6 +15,8 @@ public class Login {
 	private String senha;
 	private Usuario u;
 	
+	private boolean operacaoOk = false;
+	
 	private final DefaultView dv;
 	
 	public Login(final DefaultView dv){
@@ -119,7 +121,6 @@ public class Login {
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-			System.out.println(senha);
 		}else if(u.getTu().getId() == 2){
 			MessageDigest m;
 			try {
@@ -135,7 +136,21 @@ public class Login {
 		}else{
 			throw new RuntimeException("O Tipo de Usuário deve ser setado.");
 		}
-		return u.checkSenhaOperacoes(senha);
+		if(u.checkSenhaOperacoes(senha)){
+			operacaoOk = true;
+			return true;
+		}else{
+			operacaoOk = false;
+		}
+		return false;
+	}
+	
+	public boolean senhaOperacoesConfirmada(){
+		if(operacaoOk){
+			operacaoOk = false;
+			return true;
+		}
+		return false;
 	}
 	
 }

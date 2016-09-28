@@ -7,6 +7,7 @@ public class Agencia {
 	private int id;
 	private String nome;
 	private String numeroAgencia;
+	private String cidade;
 	private BigDecimal saldo;
 	
 	public int getId() {
@@ -32,6 +33,12 @@ public class Agencia {
 	}
 	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
+	}
+	public String getCidade() {
+		return cidade;
+	}
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 	
 }
