@@ -9,7 +9,7 @@ import br.univel.bancotads.enums.TipoUsuario;
 
 public class Usuario {
 	private int idUsuario;
-	private Pessoa pessoa;
+	public Pessoa pessoa;
 	private String username;
 	private String password;
 	private String passwordOperacoes;

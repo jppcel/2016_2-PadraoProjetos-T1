@@ -5,10 +5,13 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import br.univel.bancotads.DBConnection;
+import br.univel.bancotads.Pessoa;
 import br.univel.bancotads.Usuario;
 import br.univel.bancotads.enums.TipoUsuario;
 import br.univel.bancotads.interfaces.Dao;
@@ -233,6 +236,32 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 			}
 			rs.close();
 			return m;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public List<Usuario> listFuncionarios() {
+		StringBuilder sql = new StringBuilder();
+		List<Usuario> lista = new ArrayList<>();
+		try {
+			Connection c = DBConnection.openConnection();
+			sql.append("SELECT PESSOA.NAME,  USUARIO.USERNAME FROM USUARIO INNER JOIN PESSOA ON USUARIO.PESSOA=PESSOA.ID");
+			PreparedStatement ps = c.prepareStatement(sql.toString());
+			ps.executeQuery();
+			Usuario u = new Usuario();
+			DaoPessoa daop = new DaoPessoa();
+			ResultSet rs = ps.getResultSet();
+			while(rs.next()){
+				u.clear();
+				u.pessoa = new Pessoa();
+				u.pessoa.setNome((rs.getString("name")));
+				u.setUsername(rs.getString("username"));
+				lista.add(u);
+			}
+			rs.close();
+			return lista;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

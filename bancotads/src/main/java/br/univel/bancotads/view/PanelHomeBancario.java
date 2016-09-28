@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PanelHomeBancario extends JPanel {
 
@@ -25,6 +27,11 @@ public class PanelHomeBancario extends JPanel {
 		setLayout(gridBagLayout);
 		
 		JButton btn_1 = new JButton("1 - Informações de Contas");
+		btn_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				df.showPanel("accounts");
+			}
+		});
 		GridBagConstraints gbc_btn_1 = new GridBagConstraints();
 		gbc_btn_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btn_1.ipady = 30;
@@ -34,6 +41,11 @@ public class PanelHomeBancario extends JPanel {
 		add(btn_1, gbc_btn_1);
 		
 		JButton btn_4 = new JButton("4 - Profissionais");
+		btn_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				df.showPanel("profissionais");
+			}
+		});
 		GridBagConstraints gbc_btn_4 = new GridBagConstraints();
 		gbc_btn_4.insets = new Insets(0, 0, 5, 0);
 		gbc_btn_4.ipady = 30;
@@ -52,6 +64,11 @@ public class PanelHomeBancario extends JPanel {
 		add(btn_2, gbc_btn_2);
 		
 		JButton btn_5 = new JButton("5 - Balanço");
+		btn_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				df.showPanel("balanco");
+			}
+		});
 		GridBagConstraints gbc_btn_5 = new GridBagConstraints();
 		gbc_btn_5.ipady = 30;
 		gbc_btn_5.fill = GridBagConstraints.HORIZONTAL;
@@ -70,6 +87,11 @@ public class PanelHomeBancario extends JPanel {
 		add(btn_3, gbc_btn_3);
 		
 		JButton btn_6 = new JButton("6 - Agências");
+		btn_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				df.showPanel("agencias");
+			}
+		});
 		GridBagConstraints gbc_btn_6 = new GridBagConstraints();
 		gbc_btn_6.ipady = 30;
 		gbc_btn_6.fill = GridBagConstraints.HORIZONTAL;

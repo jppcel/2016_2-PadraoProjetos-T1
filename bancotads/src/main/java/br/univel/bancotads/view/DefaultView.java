@@ -12,6 +12,7 @@ import br.univel.bancotads.SoftwareProperties;
 
 import javax.swing.JMenuBar;
 import java.awt.Color;
+import java.text.ParseException;
 
 public class DefaultView extends JFrame {
 
@@ -36,6 +37,10 @@ public class DefaultView extends JFrame {
 	private final PanelNewClient panel_newClient;
 	private final PanelSuccess panel_success;
 	private final PanelTransferClient panel_transferClient;
+	private final PanelAccounts panel_accounts;
+	private final PanelProfissionais panel_profissionais;
+	private final PanelBalanco panel_balanco;
+	private final PanelAgencias panel_agencias;
 	
 	private final LoginView login;
 	
@@ -43,8 +48,9 @@ public class DefaultView extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws ParseException 
 	 */
-	public DefaultView() {
+	public DefaultView() throws ParseException {
 		dbc.createDatabase();
 		
 		setTitle("Banco TADS");
@@ -97,9 +103,20 @@ public class DefaultView extends JFrame {
 		panel_withdrawClient = new PanelWithdrawalClient(this);
 		cards.add(panel_withdrawClient, "withdrawal");
 		
+		panel_accounts = new PanelAccounts(this);
+		cards.add(panel_accounts, "accounts");
+		
+		panel_profissionais = new PanelProfissionais(this);
+		cards.add(panel_profissionais, "profissionais");
+		
+		panel_balanco = new PanelBalanco(this);
+		cards.add(panel_balanco, "balanco");
+		
+		panel_agencias = new PanelAgencias(this);
+		cards.add(panel_agencias, "agencias");
+		
 		PanelWhite panel_white = new PanelWhite();
 		cards.add(panel_white, "white");
-		
 
 		cardlayout.show(cards, "white");
 		
