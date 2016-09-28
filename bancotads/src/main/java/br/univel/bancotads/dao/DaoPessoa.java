@@ -107,7 +107,29 @@ public class DaoPessoa implements Dao<Pessoa, Integer>{
 	}
 
 	public Map<Integer, Pessoa> listAll() {
-		// TODO Auto-generated method stub
+		StringBuilder sql = new StringBuilder();
+		Map<Integer, Pessoa> m = new HashMap<Integer, Pessoa>();
+		try {
+			Connection c = DBConnection.openConnection();
+			sql.append("SELECT * FROM pessoa");
+			PreparedStatement ps = c.prepareStatement(sql.toString());
+			ps.executeQuery();
+			ResultSet rs = ps.getResultSet();
+			Pessoa p = new Pessoa();
+			while(rs.next()){
+				p.clear();
+				p.setId(rs.getInt("id"));
+				p.setNome(rs.getString("name"));
+				p.setCpf(rs.getString("cpf"));
+				p.setDataNascimento(new java.util.Date(rs.getDate("born").getTime()));
+				p.setGenero(Genero.values()[rs.getInt("genero")]);
+				m.put(rs.getInt("id"), p);
+			}
+			rs.close();
+			return m;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
