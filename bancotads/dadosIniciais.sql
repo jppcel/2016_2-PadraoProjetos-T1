@@ -1,7 +1,7 @@
 INSERT INTO tipoConta values 
-(1, 'Conta Corrente'), 
-(2, 'Conta Poupança'), 
-(3, 'Conta Eletrônica');
+(1, 'Conta Corrente', 'CC'), 
+(2, 'Conta Poupança', 'CP'), 
+(3, 'Conta Eletrônica', 'CE');
 INSERT INTO tipoUsuario values 
 (1, 'Cliente'), 
 (2, 'Bancário');

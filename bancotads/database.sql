@@ -7,6 +7,7 @@ CREATE TABLE genero (
 CREATE TABLE tipoConta (
 	id int auto_increment not null,
 	name varchar(60) not null,
+	abb varchar(2) not null,
 	PRIMARY KEY(id)
 );
 
