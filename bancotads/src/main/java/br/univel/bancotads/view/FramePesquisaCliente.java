@@ -28,26 +28,7 @@ public class FramePesquisaCliente extends JFrame {
 	private DaoPessoa dPessoa;
 	private Map<Integer, Pessoa> listaPessoa;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FramePesquisaCliente frame = new FramePesquisaCliente();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public FramePesquisaCliente() {
+	public FramePesquisaCliente(final PanelNewAccount pAccount) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 688, 418);
 		contentPane = new JPanel();
@@ -55,17 +36,13 @@ public class FramePesquisaCliente extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(555, 355, 117, 25);
-		contentPane.add(btnCancelar);
-		
-		JButton button = new JButton("Selecionar");
-		button.addActionListener(new ActionListener() {
+		JButton btSelect = new JButton("Selecionar");
+		btSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button.setBounds(425, 355, 117, 25);
-		contentPane.add(button);
+		btSelect.setBounds(555, 355, 117, 25);
+		contentPane.add(btSelect);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 12, 660, 331);

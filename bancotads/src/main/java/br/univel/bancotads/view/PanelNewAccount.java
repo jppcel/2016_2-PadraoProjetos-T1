@@ -2,42 +2,53 @@ package br.univel.bancotads.view;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import br.univel.bancotads.Pessoa;
+import br.univel.bancotads.Usuario;
+
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PanelNewAccount extends JPanel {
-	private JTextField textField;
+	private JTextField tfNome;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JPasswordField passwordField;
 	private JPasswordField passwordField_1;
+	private Pessoa P;
+	private JFormattedTextField tfcpf;
+	private JFormattedTextField tfdataNasc;
+	
 	public PanelNewAccount(final DefaultView df){
 		setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(133, 37, 464, 19);
-		add(textField);
-		textField.setColumns(10);
+		tfNome = new JTextField();
+		tfNome.setBounds(133, 37, 464, 19);
+		add(tfNome);
+		tfNome.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setBounds(132, 22, 70, 15);
 		add(lblNome);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField((AbstractFormatter) null);
-		formattedTextField.setBounds(133, 78, 134, 19);
-		add(formattedTextField);
+		tfdataNasc = new JFormattedTextField((AbstractFormatter) null);
+		tfdataNasc.setBounds(133, 78, 134, 19);
+		add(tfdataNasc);
 		
 		JLabel lblDataNasc = new JLabel("Data Nasc.:");
 		lblDataNasc.setBounds(132, 61, 85, 15);
 		add(lblDataNasc);
 		
-		JFormattedTextField formattedTextField_1 = new JFormattedTextField((AbstractFormatter) null);
-		formattedTextField_1.setBounds(331, 78, 266, 19);
-		add(formattedTextField_1);
+		tfcpf = new JFormattedTextField((AbstractFormatter) null);
+		tfcpf.setBounds(331, 78, 266, 19);
+		add(tfcpf);
 		
 		JLabel lblCpf = new JLabel("CPF:");
 		lblCpf.setBounds(332, 61, 85, 15);
@@ -94,5 +105,27 @@ public class PanelNewAccount extends JPanel {
 		btnConfirme.setBounds(297, 267, 168, 25);
 		add(btnConfirme);
 		
+		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pesquisar();
+			}
+		});
+		button.setIcon(new ImageIcon(PanelNewAccount.class.getResource("/org/freedesktop/tango/22x22/actions/edit-find.png")));
+		button.setBounds(606, 34, 43, 25);
+		add(button);
+		
+	}
+	public void setUsuario(Pessoa p){
+		this.P = p;
+		tfNome.setText(P.getNome());
+		tfNome.setEditable(false);
+		tfdataNasc.setEditable(false);
+		tfcpf.setText(P.getCpf());
+		tfcpf.setEditable(false);
+		
+	}
+	public void pesquisar(){
+		FramePesquisaCliente fp = new FramePesquisaCliente(this);
 	}
 }
