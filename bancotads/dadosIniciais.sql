@@ -5,6 +5,8 @@ INSERT INTO tipoConta values
 INSERT INTO tipoUsuario values 
 (1, 'Cliente'), 
 (2, 'Bancário');
+INSERT INTO tipoOperacao values 
+(1, 'Saque');
 INSERT INTO genero values 
 (1, 'Masculino'), 
 (2, 'Feminino'), 

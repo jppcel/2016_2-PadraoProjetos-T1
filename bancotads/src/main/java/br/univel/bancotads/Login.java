@@ -122,6 +122,9 @@ public class Login {
 		}
 	}
 	
+	public boolean isOperacaoOk() {
+		return operacaoOk;
+	}
 	public boolean checkSenhaOperacoes(String senha){
 		if(u.getTu().getId() == 1){
 			MessageDigest m;

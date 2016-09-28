@@ -6,28 +6,37 @@ import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
+
+import br.univel.bancotads.Movimentacao;
+import br.univel.bancotads.enums.PosSenhaOperacoes;
+
 import java.awt.Color;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 
-public class PanelWithdrawalClient extends JPanel {
+public class PanelWithdrawalClient extends JPanel implements PosSenhaOperacoes {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5590525961143815896L;
 	private JTextField tf_valor;
-	ClientPasswordView cpv;
+	private ClientPasswordView cpv;
+	private DefaultView dv;
+	private Movimentacao m;
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelWithdrawalClient(final DefaultView dv) {
-		cpv = new ClientPasswordView(dv);
-				
+		cpv = new ClientPasswordView(dv, this);
+		this.dv = dv;
+		
 		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{175, 175, 175, 175, 0};
@@ -141,18 +150,16 @@ public class PanelWithdrawalClient extends JPanel {
 
 	}
 
-	private void efetuaSaque(BigDecimal valor, DefaultView dv){
+	private void efetuaSaque(final BigDecimal valor, final DefaultView dv){
 		cpv.setOperacao("SAQUE: R$ "+valor.setScale(2, RoundingMode.HALF_EVEN));
 		dv.setEnabled(false);
 		cpv.setVisible(true);
-		
+		m = new Movimentacao(dv);
+		m.setValor(valor);
+	}
 
-		cpv.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if(evt.getPropertyName().equals("setVisible")){
-					System.out.println(1);
-				}
-			}
-		});
+	@Override
+	public void executaOperacao() {
+		m.efetuaSaque();
 	}
 }

@@ -6,6 +6,8 @@ import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
 import java.awt.Insets;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.awt.Color;
 
 public class PanelSuccess extends JPanel {
@@ -61,8 +63,8 @@ public class PanelSuccess extends JPanel {
 
 	}
 	
-	public void setValor(float valor){
-		lb_valor.setText("Valor: R$ "+valor);
+	public void setValor(BigDecimal valor){
+		lb_valor.setText("Valor: R$ "+valor.setScale(2, RoundingMode.HALF_EVEN));
 	}
 	
 	public void setOperacao(String operacao){

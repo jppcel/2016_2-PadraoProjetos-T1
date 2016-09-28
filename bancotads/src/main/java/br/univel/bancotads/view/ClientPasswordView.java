@@ -6,6 +6,7 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import br.univel.bancotads.Login;
+import br.univel.bancotads.enums.PosSenhaOperacoes;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -42,7 +43,7 @@ public class ClientPasswordView extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ClientPasswordView(final DefaultView dv) {
+	public ClientPasswordView(final DefaultView dv, final PosSenhaOperacoes pso) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
@@ -169,6 +170,7 @@ public class ClientPasswordView extends JFrame {
 				if(ok){
 					dv.setEnabled(true);
 					setVisible(false);
+					pso.executaOperacao();
 				}else{
 					JOptionPane.showMessageDialog(dv, "Senha incorreta!");
 				}

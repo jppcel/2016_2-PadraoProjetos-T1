@@ -17,6 +17,12 @@ CREATE TABLE tipoUsuario (
 	PRIMARY KEY(id)
 );
 
+CREATE TABLE tipoOperacao (
+	id int auto_increment not null,
+	name varchar(60) not null,
+	PRIMARY KEY(id)
+);
+
 CREATE TABLE pessoa (
 	id int auto_increment not null,
 	name varchar(200) not null,
@@ -67,4 +73,18 @@ CREATE TABLE usuario (
 	FOREIGN KEY(pessoa) references pessoa(id),
 	FOREIGN KEY(tipoUsuario) references tipoUsuario(id),
 	FOREIGN KEY(conta) references conta(id)
+);
+
+CREATE TABLE movimentacao (
+	id int auto_increment not null,
+	conta int not null,
+	tipoOperacao int not null,
+	usuario int not null,
+	valor double not null,
+	dataMovimentacao datetime not null,
+	motivoMovimentacao varchar(200) null,
+	PRIMARY KEY(id),
+	FOREIGN KEY(conta) REFERENCES conta(id),
+	FOREIGN KEY(tipoOperacao) REFERENCES tipoOperacao(id),
+	FOREIGN KEY(usuario) REFERENCES usuario(id)
 );
