@@ -129,7 +129,7 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 		StringBuilder sql = new StringBuilder();
 		try {
 			Connection c = DBConnection.openConnection();
-			sql.append("SELECT * FROM usuario WHERE id = ?");
+			sql.append("SELECT * FROM usuario WHERE conta = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
 			ps.setInt(1, k);
 			ps.executeQuery();
