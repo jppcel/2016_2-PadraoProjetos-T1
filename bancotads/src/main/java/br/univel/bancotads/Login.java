@@ -14,7 +14,7 @@ import br.univel.bancotads.view.PanelHomeClient;
 public class Login {
 	private String login;
 	private String senha;
-	private Usuario u;
+	private Usuario u = new Usuario();
 	
 	private boolean operacaoOk = false;
 	

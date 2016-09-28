@@ -8,20 +8,33 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.event.ChangeListener;
+
+import br.univel.bancotads.Conta;
+import br.univel.bancotads.Usuario;
+
+import javax.swing.event.ChangeEvent;
 
 public class PanelDepositClient extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 786740380643754010L;
+	final JCheckBox chckbxContaLogada;
+	private JTextField tf_ag;
+	private JTextField tf_conta;
 	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField tf_titular;
+	private JTextField tf_tipoConta;
+	private final DefaultView dv;
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelDepositClient(final DefaultView df) {
+	public PanelDepositClient(final DefaultView dv) {
+		this.dv = dv;
 		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0};
@@ -48,25 +61,6 @@ public class PanelDepositClient extends JPanel {
 		add(textField_2, gbc_textField_2);
 		textField_2.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Confirme");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton.ipady = 20;
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton.gridx = 3;
-		gbc_btnNewButton.gridy = 0;
-		add(btnNewButton, gbc_btnNewButton);
-		
-		JCheckBox chckbxContaLogada = new JCheckBox("Conta Logada");
-		chckbxContaLogada.setSelected(true);
-		GridBagConstraints gbc_chckbxContaLogada = new GridBagConstraints();
-		gbc_chckbxContaLogada.anchor = GridBagConstraints.WEST;
-		gbc_chckbxContaLogada.gridwidth = 2;
-		gbc_chckbxContaLogada.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxContaLogada.gridx = 0;
-		gbc_chckbxContaLogada.gridy = 1;
-		add(chckbxContaLogada, gbc_chckbxContaLogada);
-		
 		JLabel lblNewLabel = new JLabel("AG:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
@@ -83,27 +77,27 @@ public class PanelDepositClient extends JPanel {
 		gbc_lblNewLabel_1.gridy = 2;
 		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setEnabled(false);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 0;
-		gbc_textField.gridy = 3;
-		add(textField, gbc_textField);
-		textField.setColumns(10);
+		tf_ag = new JTextField();
+		tf_ag.setEditable(false);
+		tf_ag.setEnabled(false);
+		GridBagConstraints gbc_tf_ag = new GridBagConstraints();
+		gbc_tf_ag.insets = new Insets(0, 0, 5, 5);
+		gbc_tf_ag.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tf_ag.gridx = 0;
+		gbc_tf_ag.gridy = 3;
+		add(tf_ag, gbc_tf_ag);
+		tf_ag.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setEnabled(false);
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 1;
-		gbc_textField_1.gridy = 3;
-		add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		tf_conta = new JTextField();
+		tf_conta.setEditable(false);
+		tf_conta.setEnabled(false);
+		GridBagConstraints gbc_tf_conta = new GridBagConstraints();
+		gbc_tf_conta.insets = new Insets(0, 0, 5, 5);
+		gbc_tf_conta.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tf_conta.gridx = 1;
+		gbc_tf_conta.gridy = 3;
+		add(tf_conta, gbc_tf_conta);
+		tf_conta.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Tipo Conta");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
@@ -113,15 +107,16 @@ public class PanelDepositClient extends JPanel {
 		gbc_lblNewLabel_3.gridy = 4;
 		add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setEnabled(false);
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.gridwidth = 2;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 0;
-		gbc_comboBox.gridy = 5;
-		add(comboBox, gbc_comboBox);
+		tf_tipoConta = new JTextField();
+		tf_tipoConta.setEditable(false);
+		GridBagConstraints gbc_tf_tipoConta = new GridBagConstraints();
+		gbc_tf_tipoConta.gridwidth = 2;
+		gbc_tf_tipoConta.insets = new Insets(0, 0, 5, 5);
+		gbc_tf_tipoConta.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tf_tipoConta.gridx = 0;
+		gbc_tf_tipoConta.gridy = 5;
+		add(tf_tipoConta, gbc_tf_tipoConta);
+		tf_tipoConta.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Titular");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
@@ -131,17 +126,66 @@ public class PanelDepositClient extends JPanel {
 		gbc_lblNewLabel_4.gridy = 6;
 		add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
-		textField_3 = new JTextField();
-		textField_3.setEditable(false);
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.gridwidth = 2;
-		gbc_textField_3.insets = new Insets(0, 0, 0, 5);
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 0;
-		gbc_textField_3.gridy = 7;
-		add(textField_3, gbc_textField_3);
-		textField_3.setColumns(10);
+		tf_titular = new JTextField();
+		tf_titular.setEditable(false);
+		GridBagConstraints gbc_tf_titular = new GridBagConstraints();
+		gbc_tf_titular.gridwidth = 2;
+		gbc_tf_titular.insets = new Insets(0, 0, 0, 5);
+		gbc_tf_titular.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tf_titular.gridx = 0;
+		gbc_tf_titular.gridy = 7;
+		add(tf_titular, gbc_tf_titular);
+		tf_titular.setColumns(10);
 
+		
+		JButton btnNewButton = new JButton("Confirme");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnNewButton.ipady = 20;
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewButton.gridx = 3;
+		gbc_btnNewButton.gridy = 0;
+		add(btnNewButton, gbc_btnNewButton);
+
+		chckbxContaLogada = new JCheckBox("Conta Logada");
+		chckbxContaLogada.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				alterCampos();
+			}
+		});
+		chckbxContaLogada.setSelected(true);
+		GridBagConstraints gbc_chckbxContaLogada = new GridBagConstraints();
+		gbc_chckbxContaLogada.anchor = GridBagConstraints.WEST;
+		gbc_chckbxContaLogada.gridwidth = 2;
+		gbc_chckbxContaLogada.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxContaLogada.gridx = 0;
+		gbc_chckbxContaLogada.gridy = 1;
+		add(chckbxContaLogada, gbc_chckbxContaLogada);
+
+	}
+	
+	public void alterCampos(){
+		if(chckbxContaLogada.isSelected()){
+			tf_ag.setEnabled(false);
+			tf_ag.setEditable(false);
+			tf_conta.setEnabled(false);
+			tf_conta.setEditable(false);
+			Usuario u = dv.getL().getU();
+			Conta c = u.getConta();
+			tf_ag.setText(c.getAgencia().getNumeroAgencia());
+			tf_conta.setText(c.getNumeroConta());
+			tf_tipoConta.setText(c.getTipoConta().getNome());
+			tf_titular.setText(u.getPessoa().getNome());
+		}else{
+			tf_ag.setEnabled(true);
+			tf_ag.setEditable(true);
+			tf_ag.setText("");
+			tf_conta.setEnabled(true);
+			tf_conta.setEditable(true);
+			tf_conta.setText("");
+			tf_tipoConta.setText("");
+			tf_titular.setText("");
+		}
 	}
 
 }

@@ -53,7 +53,7 @@ public class DefaultView extends JFrame {
 	private final Login l = new Login(this);
 	private JMenu mnSistema;
 	private JMenuItem mntmHome;
-	private JMenuItem mntmDEslogar;
+	private JMenuItem mntmDeslogar;
 	private JMenuItem mntmSair;
 
 	/**
@@ -86,14 +86,14 @@ public class DefaultView extends JFrame {
 		});
 		mnSistema.add(mntmHome);
 		
-		mntmDEslogar = new JMenuItem("Deslogar");
-		mntmDEslogar.addMouseListener(new MouseAdapter() {
+		mntmDeslogar = new JMenuItem("Deslogar");
+		mntmDeslogar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				doLogout();
 			}
 		});
-		mnSistema.add(mntmDEslogar);
+		mnSistema.add(mntmDeslogar);
 		
 		mntmSair = new JMenuItem("Sair");
 		mntmSair.addMouseListener(new MouseAdapter() {

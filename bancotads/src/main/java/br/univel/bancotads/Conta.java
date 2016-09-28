@@ -8,10 +8,10 @@ import br.univel.bancotads.enums.TipoConta;
 public class Conta {
 
 	private int id;
-	private Agencia agencia;
+	private Agencia agencia = new Agencia();
 	private String numeroConta;
 	private Usuario usuario;
-	private TipoConta tipoConta;
+	private TipoConta tipoConta = TipoConta.CORRENTE;
 	private BigDecimal saldo;
 	private Date dataCriacao;
 	

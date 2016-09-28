@@ -92,6 +92,7 @@ public class PanelHomeClient extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				dv.showPanel("depositClient");
+				dv.getPanel_depositClient().alterCampos();
 			}
 		});
 		GridBagConstraints gbc_btn_3 = new GridBagConstraints();
