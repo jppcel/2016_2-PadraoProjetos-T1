@@ -19,14 +19,18 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 		StringBuilder sql = new StringBuilder();
 		try {
 			Connection c = DBConnection.openConnection();
-			sql.append("INSERT INTO usuario (pessoa, username, password, passwordOperacoes, tipoUsuario, conta, dataCriacao, ativo) values (?, ?, ?, ?, ?, ?, true)");
+			sql.append("INSERT INTO usuario (pessoa, username, password, passwordOperacoes, tipoUsuario, conta, dataCriacao, ativo) values (?, ?, ?, ?, ?, ?, ?, true)");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
 			ps.setInt(1, t.getPessoa().getId());
 			ps.setString(2, t.getUsername());
 			ps.setString(3, t.getPassword());
 			ps.setString(4, t.getPasswordOperacoes());
 			ps.setInt(5, t.getTu().getId());
-			ps.setInt(6, t.getConta().getId());
+			if(t.getTu().getId() == TipoUsuario.CLIENTE.getId()){
+				ps.setInt(6, t.getConta().getId());
+			}else{
+				ps.setNull(6, java.sql.Types.INTEGER);
+			}
 			ps.setDate(7, new Date(new java.util.Date().getTime()));
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -45,7 +49,11 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 			ps.setString(3, t.getPassword());
 			ps.setString(4, t.getPasswordOperacoes());
 			ps.setInt(5, t.getTu().getId());
-			ps.setInt(6, t.getConta().getId());
+			if(t.getTu().getId() == TipoUsuario.CLIENTE.getId()){
+				ps.setInt(6, t.getConta().getId());
+			}else{
+				ps.setNull(6, java.sql.Types.INTEGER);
+			}
 			ps.setDate(7, new Date(new java.util.Date().getTime()));
 			ps.setInt(8, k);
 			ps.executeUpdate();
@@ -104,7 +112,39 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 				u.setPassword(rs.getString("password"));
 				u.setPasswordOperacoes(rs.getString("passwordOperacoes"));
 				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
-				u.setConta(new DaoConta().search(rs.getInt("conta")));
+				if(u.getTu().getId() == TipoUsuario.CLIENTE.getId()){
+					u.setConta(new DaoConta().search(rs.getInt("conta")));
+				}
+				u.setAtivo(rs.getBoolean("ativo"));
+			}
+			rs.close();
+			return u;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Usuario searchPorConta(Integer k) {
+		StringBuilder sql = new StringBuilder();
+		try {
+			Connection c = DBConnection.openConnection();
+			sql.append("SELECT * FROM usuario WHERE id = ?");
+			PreparedStatement ps = c.prepareStatement(sql.toString());
+			ps.setInt(1, k);
+			ps.executeQuery();
+			Usuario u = new Usuario();
+			DaoPessoa daop = new DaoPessoa();
+			ResultSet rs = ps.getResultSet();
+			while(rs.next()){
+				u.setIdUsuario(rs.getInt("id"));
+				u.setPessoa(daop.search(rs.getInt("pessoa")));
+				u.setUsername(rs.getString("username"));
+				u.setPassword(rs.getString("password"));
+				u.setPasswordOperacoes(rs.getString("passwordOperacoes"));
+				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
+				if(u.getTu().getId() == TipoUsuario.CLIENTE.getId())
+					u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
 			}
 			rs.close();
@@ -133,7 +173,8 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 				u.setPassword(rs.getString("password"));
 				u.setPasswordOperacoes(rs.getString("passwordOperacoes"));
 				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")-1]);
-				u.setConta(new DaoConta().search(rs.getInt("conta")));
+				if(u.getTu().getId() == TipoUsuario.CLIENTE.getId())
+					u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
 			}
 			rs.close();
@@ -165,7 +206,8 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 				u.setPassword(rs.getString("password"));
 				u.setPasswordOperacoes(rs.getString("passwordOperacoes"));
 				u.setTu(tu);
-				u.setConta(new DaoConta().search(rs.getInt("conta")));
+				if(u.getTu().getId() == TipoUsuario.CLIENTE.getId())
+					u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
 				m.put(i++, u);
 			}
@@ -198,7 +240,8 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 				u.setPassword(rs.getString("password"));
 				u.setPasswordOperacoes(rs.getString("passwordOperacoes"));
 				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
-				u.setConta(new DaoConta().search(rs.getInt("conta")));
+				if(u.getTu().getId() == TipoUsuario.CLIENTE.getId())
+					u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
 				m.put(i++, u);
 			}
@@ -230,7 +273,8 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 				u.setPassword(rs.getString("password"));
 				u.setPasswordOperacoes(rs.getString("passwordOperacoes"));
 				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
-				u.setConta(new DaoConta().search(rs.getInt("conta")));
+				if(u.getTu().getId() == TipoUsuario.CLIENTE.getId())
+					u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
 				m.put(i++, u);
 			}
