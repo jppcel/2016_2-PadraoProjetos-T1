@@ -15,7 +15,7 @@ INSERT INTO agencia values
 (1, 'Cascavel/PR Centro', '0001', 'Cascavel/PR', '0001', 0.00), 
 (2, 'Corbélia Centro', '0002', 'Corbélia/PR', null,  0.00), 
 (3, 'São Paulo/SP Centro', '1001', 'São Paulo/SP', null, 0.00), 
-(4, 'Salvador Centro', null, '2001', 'Salvador/BA', null, 0.00), 
+(4, 'Salvador Centro', '2001', 'Salvador/BA', null, 0.00), 
 (5, 'Palmas/TO Praia da Graciosa', '3001', 'Palmas/TO', null, 0.00), 
 (6, 'Goiânia Centro', '4001', 'Goiânia/GO', null, 0.00), 
 (7, 'Araguaína São João', '3002', 'Araguaína/TO', null, 0.00), 
