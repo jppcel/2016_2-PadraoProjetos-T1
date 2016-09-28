@@ -14,8 +14,11 @@ import javax.swing.event.ChangeListener;
 
 import br.univel.bancotads.Conta;
 import br.univel.bancotads.Usuario;
+import br.univel.bancotads.dao.DaoConta;
 
 import javax.swing.event.ChangeEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class PanelDepositClient extends JPanel {
 	/**
@@ -78,6 +81,12 @@ public class PanelDepositClient extends JPanel {
 		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		tf_ag = new JTextField();
+		tf_ag.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkConta();
+			}
+		});
 		tf_ag.setEditable(false);
 		tf_ag.setEnabled(false);
 		GridBagConstraints gbc_tf_ag = new GridBagConstraints();
@@ -89,6 +98,12 @@ public class PanelDepositClient extends JPanel {
 		tf_ag.setColumns(10);
 		
 		tf_conta = new JTextField();
+		tf_conta.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				checkConta();
+			}
+		});
 		tf_conta.setEditable(false);
 		tf_conta.setEnabled(false);
 		GridBagConstraints gbc_tf_conta = new GridBagConstraints();
@@ -185,6 +200,20 @@ public class PanelDepositClient extends JPanel {
 			tf_conta.setText("");
 			tf_tipoConta.setText("");
 			tf_titular.setText("");
+		}
+	}
+	
+	public void checkConta(){
+		if(!tf_ag.getText().isEmpty() && !tf_conta.getText().isEmpty()){
+			DaoConta daoc = new DaoConta();
+			Conta c = daoc.searchConta(tf_ag.getText(), tf_conta.getText());
+			if(c != null){
+				tf_tipoConta.setText(c.getTipoConta().getNome());
+				tf_titular.setText(c.getUsuario().getPessoa().getNome());
+			}else{
+				tf_tipoConta.setText("");
+				tf_titular.setText("");
+			}
 		}
 	}
 
