@@ -1,5 +1,6 @@
 package br.univel.bancotads.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -36,13 +37,13 @@ public class DaoConta implements Dao<Conta, Integer> {
 		// sem uso
 	}
 
-	public void updateSaldo(Integer v, Integer k) {
+	public void updateSaldo(BigDecimal bigDecimal, Integer k) {
 		StringBuilder sql = new StringBuilder();
 		try {
 			Connection c = DBConnection.openConnection();
 			sql.append("UPDATE conta SET saldo = ? WHERE id = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setInt(1, v);
+			ps.setBigDecimal(1, bigDecimal);
 			ps.setInt(2, k);
 			ps.executeUpdate();
 		} catch (SQLException e) {

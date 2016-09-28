@@ -40,15 +40,6 @@ public class DaoAgencia implements Dao<Agencia, Integer> {
 			ps.setString(3, t.getCidade());
 			ps.setInt(4, k);
 			ps.executeUpdate();
-			Agencia a = new Agencia();
-			ResultSet rs = ps.getResultSet();
-			while(rs.next()){
-				a.setId(rs.getInt("id"));
-				a.setNome(rs.getString("name"));
-				a.setNumeroAgencia(rs.getString("numeroAgencia"));
-				a.setSaldo(rs.getBigDecimal("saldo"));
-			}
-			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -63,15 +54,6 @@ public class DaoAgencia implements Dao<Agencia, Integer> {
 			ps.setBigDecimal(1, t);
 			ps.setInt(2, k);
 			ps.executeUpdate();
-			Agencia a = new Agencia();
-			ResultSet rs = ps.getResultSet();
-			while(rs.next()){
-				a.setId(rs.getInt("id"));
-				a.setNome(rs.getString("name"));
-				a.setNumeroAgencia(rs.getString("numeroAgencia"));
-				a.setSaldo(rs.getBigDecimal("saldo"));
-			}
-			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
