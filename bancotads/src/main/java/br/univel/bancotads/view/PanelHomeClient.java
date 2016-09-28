@@ -18,6 +18,7 @@ public class PanelHomeClient extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -1484003892591769942L;
+	JButton btn_1, btn_2, btn_3, btn_4, btn_5, btn_6;
 
 	public PanelHomeClient(final DefaultView dv) {
 		setBackground(Color.WHITE);
@@ -28,7 +29,7 @@ public class PanelHomeClient extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JButton btn_1 = new JButton("1 - Saques");
+		btn_1 = new JButton("1 - Saques");
 		btn_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dv.showPanel("withdrawal");
@@ -42,7 +43,7 @@ public class PanelHomeClient extends JPanel {
 		gbc_btn_1.gridy = 0;
 		add(btn_1, gbc_btn_1);
 		
-		JButton btn_4 = new JButton("4 - Transferências");
+		btn_4 = new JButton("4 - Transferências");
 		btn_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -57,7 +58,7 @@ public class PanelHomeClient extends JPanel {
 		gbc_btn_4.gridy = 0;
 		add(btn_4, gbc_btn_4);
 		
-		JButton btn_2 = new JButton("2 - Saldo");
+		btn_2 = new JButton("2 - Saldo");
 		btn_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -72,7 +73,7 @@ public class PanelHomeClient extends JPanel {
 		gbc_btn_2.gridy = 1;
 		add(btn_2, gbc_btn_2);
 		
-		JButton btn_5 = new JButton("5 - Pagamentos");
+		btn_5 = new JButton("5 - Pagamentos");
 		btn_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dv.showPanel("payment");
@@ -86,7 +87,7 @@ public class PanelHomeClient extends JPanel {
 		gbc_btn_5.gridy = 1;
 		add(btn_5, gbc_btn_5);
 		
-		JButton btn_3 = new JButton("3 - Depósitos");
+		btn_3 = new JButton("3 - Depósitos");
 		btn_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -101,7 +102,13 @@ public class PanelHomeClient extends JPanel {
 		gbc_btn_3.gridy = 2;
 		add(btn_3, gbc_btn_3);
 		
-		JButton btn_6 = new JButton("6 - Finalizar");
+		btn_6 = new JButton("6 - Finalizar");
+		btn_6.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				dv.doLogout();
+			}
+		});
 		GridBagConstraints gbc_btn_6 = new GridBagConstraints();
 		gbc_btn_6.ipady = 30;
 		gbc_btn_6.fill = GridBagConstraints.HORIZONTAL;
@@ -109,6 +116,36 @@ public class PanelHomeClient extends JPanel {
 		gbc_btn_6.gridy = 2;
 		add(btn_6, gbc_btn_6);
 
+	}
+	
+	public void setButtons(int[] buttons){
+		btn_1.setEnabled(false);
+		btn_2.setEnabled(false);
+		btn_3.setEnabled(false);
+		btn_4.setEnabled(false);
+		btn_5.setEnabled(false);
+		btn_6.setEnabled(false);
+		for(int b : buttons){
+			switch(b){
+				case 1:
+					btn_1.setEnabled(true);
+					break;
+				case 2:
+					btn_2.setEnabled(true);
+					break;
+				case 3:
+					btn_3.setEnabled(true);
+					break;
+				case 4:
+					btn_4.setEnabled(true);
+					break;
+				case 5:
+					btn_5.setEnabled(true);
+					break;
+				case 6:
+					btn_6.setEnabled(true);
+			}
+		}
 	}
 
 }

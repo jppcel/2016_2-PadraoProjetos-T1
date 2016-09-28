@@ -1,12 +1,14 @@
 package br.univel.bancotads.model;
 
-import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.swing.table.AbstractTableModel;
 import br.univel.bancotads.Usuario;
 	
-	public class FuncionarioModel extends AbstractTableModel {
+	public class BancarioModel extends AbstractTableModel {
 	    
-	    private List<Usuario> lista;
+	    private Map<Integer,Usuario> lista;
 	    
 	    private String[] columnNames = {"Nome", "Username"};
 	    
@@ -15,7 +17,7 @@ import br.univel.bancotads.Usuario;
 	        return columnNames[index];
 	    }
 
-	    public FuncionarioModel(List<Usuario> listaU) {
+	    public BancarioModel(Map<Integer,Usuario> listaU) {
 	        this.lista = listaU;
 	    }
 
@@ -31,11 +33,11 @@ import br.univel.bancotads.Usuario;
 		   Usuario u = lista.get(row);
 
 			switch (col) {
-			case 0:
-				return u.getPessoa().getNome();
-			case 1:
-				return u.getUsername();
-	                }          
+				case 0:
+					return u.getPessoa().getNome();
+				case 1:
+					return u.getUsername();
+	        }          
 			return null;
 	    }
 	    

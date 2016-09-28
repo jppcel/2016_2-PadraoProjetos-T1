@@ -3,13 +3,13 @@ package br.univel.bancotads.view;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import br.univel.bancotads.Usuario;
 import br.univel.bancotads.dao.DaoUsuario;
-import br.univel.bancotads.model.FuncionarioModel;
+import br.univel.bancotads.enums.TipoUsuario;
+import br.univel.bancotads.model.BancarioModel;
 
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
@@ -17,7 +17,7 @@ import java.awt.Dimension;
 
 public class PanelProfissionais extends JPanel {
 	private DaoUsuario dUsuario;
-	private List<Usuario> listaUsuario;
+	private Map<Integer, Usuario> listaUsuario;
 	private JTable tbFuncionarios;
 	
 	public PanelProfissionais(final DefaultView df) {
@@ -63,11 +63,10 @@ public class PanelProfissionais extends JPanel {
 		
 	}
 	
-	private void updateTable(){
+	public void updateTable(){
 		this.dUsuario = new DaoUsuario();
-		this.listaUsuario = dUsuario.listFuncionarios();
-		FuncionarioModel model = new FuncionarioModel(listaUsuario);
+		this.listaUsuario = dUsuario.search(TipoUsuario.BANCARIO);
+		BancarioModel model = new BancarioModel(listaUsuario);
 	    tbFuncionarios.setModel(model);
-		
 	}
 }

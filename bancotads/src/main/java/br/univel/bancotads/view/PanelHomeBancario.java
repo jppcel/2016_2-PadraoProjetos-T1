@@ -1,9 +1,6 @@
 package br.univel.bancotads.view;
 
 import javax.swing.JPanel;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
@@ -43,6 +40,8 @@ public class PanelHomeBancario extends JPanel {
 		JButton btn_4 = new JButton("4 - Profissionais");
 		btn_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				final PanelProfissionais PanelProfissionais = df.getPanel_profissionais();
+				PanelProfissionais.updateTable();
 				df.showPanel("profissionais");
 			}
 		});

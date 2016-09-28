@@ -5,13 +5,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import br.univel.bancotads.DBConnection;
-import br.univel.bancotads.Pessoa;
 import br.univel.bancotads.Usuario;
 import br.univel.bancotads.enums.TipoUsuario;
 import br.univel.bancotads.interfaces.Dao;
@@ -150,6 +147,7 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 	public Map<Integer, Usuario> search(TipoUsuario tu) {
 		StringBuilder sql = new StringBuilder();
 		Map<Integer, Usuario> m = new HashMap<Integer, Usuario>();
+		int i = 0;
 		try {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT * FROM usuario WHERE tipoUsuario = ?");
@@ -169,7 +167,7 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 				u.setTu(tu);
 				u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
-				m.put(rs.getInt("id"), u);
+				m.put(i++, u);
 			}
 			rs.close();
 			return m;
@@ -182,6 +180,7 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 	public Map<Integer, Usuario> search(String field, String text) {
 		StringBuilder sql = new StringBuilder();
 		Map<Integer, Usuario> m = new HashMap<Integer, Usuario>();
+		int i = 0;
 		try {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT * FROM usuario WHERE ").append(field).append(" = ?");
@@ -201,7 +200,7 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
 				u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
-				m.put(rs.getInt("id"), u);
+				m.put(i++, u);
 			}
 			rs.close();
 			return m;
@@ -214,6 +213,7 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 	public Map<Integer, Usuario> listAll() {
 		StringBuilder sql = new StringBuilder();
 		Map<Integer, Usuario> m = new HashMap<Integer, Usuario>();
+		int i = 0;
 		try {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT * FROM usuario");
@@ -232,7 +232,7 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 				u.setTu(TipoUsuario.values()[rs.getInt("tipoUsuario")]);
 				u.setConta(new DaoConta().search(rs.getInt("conta")));
 				u.setAtivo(rs.getBoolean("ativo"));
-				m.put(rs.getInt("id"), u);
+				m.put(i++, u);
 			}
 			rs.close();
 			return m;
@@ -241,31 +241,4 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 		}
 		return null;
 	}
-	
-	public List<Usuario> listFuncionarios() {
-		StringBuilder sql = new StringBuilder();
-		List<Usuario> lista = new ArrayList<>();
-		try {
-			Connection c = DBConnection.openConnection();
-			sql.append("SELECT PESSOA.NAME,  USUARIO.USERNAME FROM USUARIO INNER JOIN PESSOA ON USUARIO.PESSOA=PESSOA.ID");
-			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.executeQuery();
-			Usuario u = new Usuario();
-			DaoPessoa daop = new DaoPessoa();
-			ResultSet rs = ps.getResultSet();
-			while(rs.next()){
-				u.clear();
-				u.pessoa = new Pessoa();
-				u.pessoa.setNome((rs.getString("name")));
-				u.setUsername(rs.getString("username"));
-				lista.add(u);
-			}
-			rs.close();
-			return lista;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 }

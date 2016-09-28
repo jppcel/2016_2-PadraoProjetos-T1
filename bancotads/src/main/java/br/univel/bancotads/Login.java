@@ -6,11 +6,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import br.univel.bancotads.dao.DaoUsuario;
+import br.univel.bancotads.enums.TipoConta;
 import br.univel.bancotads.view.DefaultView;
 import br.univel.bancotads.view.PanelHeader;
+import br.univel.bancotads.view.PanelHomeClient;
 
 public class Login {
-	private int id;
 	private String login;
 	private String senha;
 	private Usuario u;
@@ -21,13 +22,6 @@ public class Login {
 	
 	public Login(final DefaultView dv){
 		this.dv = dv;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 	public String getLogin() {
 		return login;
@@ -72,6 +66,13 @@ public class Login {
 			throw new RuntimeException("O usuário precisa não pode ser nulo!");
 		}
 	}
+	public Usuario getU() {
+		return u;
+	}
+
+	public void setU(Usuario u) {
+		this.u = u;
+	}
 	
 	public boolean hasLogin(){
 		if(u.getIdUsuario() == 0){
@@ -95,11 +96,26 @@ public class Login {
 		if(u.getTu().getId() == 1){
 			Conta c = u.getConta();
 			Agencia a = c.getAgencia();
+			final PanelHomeClient pc = dv.getPanel_homeClient();
 			ph.setAg(a.getNumeroAgencia());
 			ph.setConta(c.getTipoConta(), c.getNumeroConta());
 			ph.setSaldo(c.getSaldo());
 			ph.setVisibleFields(true);
 			dv.showPanel("homeClient");
+			TipoConta tc = u.getConta().getTipoConta();
+			switch(tc.getId()){
+				case 1:
+					int[] b1 = {1,2,3,4,5,6};
+					pc.setButtons(b1);
+					break;
+				case 2:
+					int[] b2 = {1,2,3,4,6};
+					pc.setButtons(b2);
+					break;
+				case 3:
+					int[] b3 = {2,4,5,6};
+					pc.setButtons(b3);
+			}
 		}else{
 			ph.setVisibleDate();
 			dv.showPanel("homeBancario");
@@ -151,6 +167,12 @@ public class Login {
 			return true;
 		}
 		return false;
+	}
+	
+	public void logout(){
+		login = null;
+		senha = null;
+		u = null;
 	}
 	
 }

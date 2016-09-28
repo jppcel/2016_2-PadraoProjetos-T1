@@ -6,10 +6,10 @@ import br.univel.bancotads.enums.Genero;
 
 public class Pessoa {
 	private int id;
-	private String nome;
-	private Genero genero;
-	private Date dataNascimento;
-	private String cpf; 
+	private String nome = null;
+	private Genero genero = null;
+	private Date dataNascimento = null;
+	private String cpf = null; 
 
 	public String getNome() {
 		return nome;

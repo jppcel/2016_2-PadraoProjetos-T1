@@ -116,6 +116,7 @@ public class LoginView extends JFrame {
 		gbc_btn_login.gridx = 0;
 		gbc_btn_login.gridy = 4;
 		contentPane.add(btn_login, gbc_btn_login);
+		tf_usuario.requestFocus();
 	}
 	
 	private void makeLogin(final DefaultView dv){
@@ -126,16 +127,12 @@ public class LoginView extends JFrame {
 				if(l.hasLogin()){
 					l.setSenha(String.copyValueOf(tf_senha.getPassword()));
 					if(!l.checkSenha()){
-						tf_usuario.setText("");
-						tf_senha.setText("");
 						JOptionPane.showMessageDialog(dv, "Usuário ou senha incorretos!");
 					}else{
 						l.setInitialPanel();
 						setVisible(false);
 					}
 				}else{
-					tf_usuario.setText("");
-					tf_senha.setText("");
 					JOptionPane.showMessageDialog(dv, "Usuário inexistente!");
 				}
 			}else{
@@ -144,5 +141,8 @@ public class LoginView extends JFrame {
 		}else{
 			JOptionPane.showMessageDialog(dv, "O campo de login é obrigatório!");
 		}
+		tf_usuario.setText("");
+		tf_senha.setText("");
+		tf_usuario.requestFocus();
 	}
 }

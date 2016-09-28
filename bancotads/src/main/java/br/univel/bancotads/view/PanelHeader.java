@@ -138,7 +138,7 @@ public class PanelHeader extends JPanel {
 	}
 	
 	public void setConta(TipoConta tp, String string){
-		lb_conta.setText(tp.getNome()+": "+string);
+		lb_conta.setText(tp.getAbb()+": "+string);
 	}
 	
 	public void setSaldo(BigDecimal bigDecimal){

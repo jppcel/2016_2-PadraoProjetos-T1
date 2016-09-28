@@ -9,12 +9,12 @@ import br.univel.bancotads.enums.TipoUsuario;
 
 public class Usuario {
 	private int idUsuario;
-	public Pessoa pessoa;
+	private Pessoa pessoa = new Pessoa();
 	private String username;
 	private String password;
 	private String passwordOperacoes;
 	private TipoUsuario tu;
-	private Conta conta;
+	private Conta conta = new Conta();
 	private Boolean ativo;
 	
 	public int getIdUsuario() {
