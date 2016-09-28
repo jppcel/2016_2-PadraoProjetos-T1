@@ -3,25 +3,37 @@ package br.univel.bancotads.view;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.awt.event.ActionEvent;
+import br.univel.bancotads.enums.Genero;
+import javax.swing.JFormattedTextField;
 
 public class PanelNewBancario extends JPanel {
+	
 	private JTextField tf_senhaoperacoes;
 	private JTextField tf_senhaacesso;
 	private JTextField tf_username;
-	private JTextField tf_idade;
 	private JTextField tf_nome;
-	private JTextField tf_cpf;
+	private MaskFormatter mfdata;
+	private MaskFormatter mfcpf;
 
 	/**
 	 * Create the panel.
+	 * @throws ParseException 
 	 */
-	public PanelNewBancario(final DefaultView df) {
+	public PanelNewBancario(final DefaultView df) throws ParseException {
+		initmasks();
 		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0};
@@ -59,14 +71,15 @@ public class PanelNewBancario extends JPanel {
 		gbc_lblGnero.gridy = 3;
 		add(lblGnero, gbc_lblGnero);
 		
-		JComboBox cb_genero = new JComboBox();
+		JComboBox cb_genero = new JComboBox<Object>(Genero.values());
 		GridBagConstraints gbc_cb_genero = new GridBagConstraints();
 		gbc_cb_genero.gridwidth = 4;
-		gbc_cb_genero.insets = new Insets(0, 0, 5, 5);
+		gbc_cb_genero.insets = new Insets(0, 0, 5, 0);
 		gbc_cb_genero.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cb_genero.gridx = 0;
 		gbc_cb_genero.gridy = 4;
 		add(cb_genero, gbc_cb_genero);
+		
 		
 		JLabel lblNewLabel_3 = new JLabel("Data de Nascimento");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
@@ -77,15 +90,14 @@ public class PanelNewBancario extends JPanel {
 		gbc_lblNewLabel_3.gridy = 5;
 		add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		tf_idade = new JTextField();
-		GridBagConstraints gbc_tf_idade = new GridBagConstraints();
-		gbc_tf_idade.gridwidth = 4;
-		gbc_tf_idade.insets = new Insets(0, 0, 5, 0);
-		gbc_tf_idade.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tf_idade.gridx = 0;
-		gbc_tf_idade.gridy = 6;
-		add(tf_idade, gbc_tf_idade);
-		tf_idade.setColumns(10);
+		final JFormattedTextField tfDataNasc = new JFormattedTextField(mfdata);
+		GridBagConstraints gbc_tfDataNasc = new GridBagConstraints();
+		gbc_tfDataNasc.gridwidth = 4;
+		gbc_tfDataNasc.insets = new Insets(0, 0, 5, 0);
+		gbc_tfDataNasc.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfDataNasc.gridx = 0;
+		gbc_tfDataNasc.gridy = 6;
+		add(tfDataNasc, gbc_tfDataNasc);
 		
 		JLabel lblCpf = new JLabel("CPF");
 		GridBagConstraints gbc_lblCpf = new GridBagConstraints();
@@ -96,15 +108,14 @@ public class PanelNewBancario extends JPanel {
 		gbc_lblCpf.gridy = 7;
 		add(lblCpf, gbc_lblCpf);
 		
-		tf_cpf = new JTextField();
-		GridBagConstraints gbc_tf_cpf = new GridBagConstraints();
-		gbc_tf_cpf.gridwidth = 4;
-		gbc_tf_cpf.insets = new Insets(0, 0, 5, 0);
-		gbc_tf_cpf.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tf_cpf.gridx = 0;
-		gbc_tf_cpf.gridy = 8;
-		add(tf_cpf, gbc_tf_cpf);
-		tf_cpf.setColumns(10);
+		final JFormattedTextField tfCpf = new JFormattedTextField(mfcpf);
+		GridBagConstraints gbc_tfCpf = new GridBagConstraints();
+		gbc_tfCpf.gridwidth = 4;
+		gbc_tfCpf.insets = new Insets(0, 0, 5, 5);
+		gbc_tfCpf.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfCpf.gridx = 0;
+		gbc_tfCpf.gridy = 8;
+		add(tfCpf, gbc_tfCpf);
 		
 		JLabel lblNewLabel_2 = new JLabel("Username");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -163,13 +174,49 @@ public class PanelNewBancario extends JPanel {
 		add(tf_senhaoperacoes, gbc_tf_senhaoperacoes);
 		tf_senhaoperacoes.setColumns(10);
 		
+		JButton btnVoltar = new JButton("");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			df.showPanel("profissionais");
+			}
+		});
+		btnVoltar.setIcon(new ImageIcon(PanelNewBancario.class.getResource("/org/freedesktop/tango/22x22/actions/go-previous.png")));
+		GridBagConstraints gbc_btnVoltar = new GridBagConstraints();
+		gbc_btnVoltar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnVoltar.gridx = 2;
+		gbc_btnVoltar.gridy = 13;
+		add(btnVoltar, gbc_btnVoltar);
+		
 		JButton btn_confirme = new JButton("Confirme");
+		btn_confirme.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (tf_nome.getText().isEmpty() || tf_username.getText().isEmpty() || tfDataNasc.getText().isEmpty() || tf_senhaacesso.getText().isEmpty()
+						|| tf_senhaoperacoes.getText().isEmpty() || tfCpf.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Algum campo está vazio, verificar.");
+				}
+				else {
+					// INSERIR NO BANCO COM OS DADOS
+					df.showPanel("profissionais");
+				}
+			}
+		});
 		GridBagConstraints gbc_btn_confirme = new GridBagConstraints();
 		gbc_btn_confirme.anchor = GridBagConstraints.EAST;
 		gbc_btn_confirme.ipady = 20;
 		gbc_btn_confirme.gridx = 3;
 		gbc_btn_confirme.gridy = 13;
 		add(btn_confirme, gbc_btn_confirme);
+		
 
+	}
+
+	private void initmasks() throws ParseException {
+			MaskFormatter mfdata = new MaskFormatter("##/##/####");
+			mfdata.setPlaceholderCharacter('_');
+			MaskFormatter mfcpf = new MaskFormatter("###.###.###-##");
+			mfcpf.setPlaceholderCharacter('_');
+			this.mfdata = mfdata;
+			this.mfcpf = mfcpf;
+			
 	}
 }

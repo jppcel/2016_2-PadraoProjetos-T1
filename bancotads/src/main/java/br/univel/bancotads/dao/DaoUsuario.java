@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -233,6 +234,31 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 			}
 			rs.close();
 			return m;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<Usuario> listFuncionarios() {
+		StringBuilder sql = new StringBuilder();
+		ArrayList<Usuario> lista = new ArrayList<Usuario>();
+		try {
+			Connection c = DBConnection.openConnection();
+			sql.append("SELECT PESSOA.NAME,  USUARIO.USERNAME FROM USUARIO INNER JOIN PESSOA ON USUARIO.PESSOA=PESSOA.ID");
+			PreparedStatement ps = c.prepareStatement(sql.toString());
+			ps.executeQuery();
+			Usuario u = new Usuario();
+			DaoPessoa daop = new DaoPessoa();
+			ResultSet rs = ps.getResultSet();
+			while(rs.next()){
+				u.clear();
+				u.getPessoa().setNome((rs.getString("name")));
+				u.getPessoa().setNome((rs.getString("pessoa")));
+				lista.add(u);
+			}
+			rs.close();
+			return lista;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
