@@ -53,6 +53,7 @@ public class DefaultView extends JFrame {
 	private final Login l = new Login(this);
 	private JMenu mnSistema;
 	private JMenuItem mntmHome;
+	private JMenuItem mntmDEslogar;
 	private JMenuItem mntmSair;
 
 	/**
@@ -85,11 +86,20 @@ public class DefaultView extends JFrame {
 		});
 		mnSistema.add(mntmHome);
 		
+		mntmDEslogar = new JMenuItem("Deslogar");
+		mntmDEslogar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				doLogout();
+			}
+		});
+		mnSistema.add(mntmDEslogar);
+		
 		mntmSair = new JMenuItem("Sair");
 		mntmSair.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				doLogout();
+				doSair();
 			}
 		});
 		mnSistema.add(mntmSair);
@@ -236,12 +246,19 @@ public class DefaultView extends JFrame {
 	}
 	
 	public void doLogout(){
-		int dialogResult = JOptionPane.showConfirmDialog(getInstance(), "Tem certeza que deseja sair?", "Confirmação", JOptionPane.YES_NO_OPTION);
+		int dialogResult = JOptionPane.showConfirmDialog(getInstance(), "Tem certeza que deseja deslogar dessa conta?", "Confirmação", JOptionPane.YES_NO_OPTION);
 		if(dialogResult == 0){
 			l.logout();
 			showPanel("white");
 			panel_header.setVisibleFields(false);
 			login.setVisible(true);
+		}
+	}
+	
+	public void doSair(){
+		int dialogResult = JOptionPane.showConfirmDialog(getInstance(), "Tem certeza que deseja sair do software?", "Confirmação", JOptionPane.YES_NO_OPTION);
+		if(dialogResult == 0){
+			System.exit(0);
 		}
 	}
 
