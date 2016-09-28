@@ -1,5 +1,6 @@
 package br.univel.bancotads.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,16 +15,52 @@ import br.univel.bancotads.interfaces.Dao;
 public class DaoAgencia implements Dao<Agencia, Integer> {
 
 	public void insert(Agencia t) {
-		// Não é necessário
+		StringBuilder sql = new StringBuilder();
+		try {
+			Connection c = DBConnection.openConnection();
+			sql.append("INSERT INTO agencia (name, numeroAgencia, cidade, saldo) values (?, ?, ?, 0.00);");
+			PreparedStatement ps = c.prepareStatement(sql.toString());
+			ps.setString(1, t.getNome());
+			ps.setString(2, t.getNumeroAgencia());
+			ps.setString(3, t.getCidade());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void update(Agencia t, Integer k){
 		StringBuilder sql = new StringBuilder();
 		try {
 			Connection c = DBConnection.openConnection();
+			sql.append("UPDATE agencia SET name = ?, numeroAgencia = ? cidade = ? WHERE id = ?");
+			PreparedStatement ps = c.prepareStatement(sql.toString());
+			ps.setString(1, t.getNome());
+			ps.setString(2, t.getNumeroAgencia());
+			ps.setString(3, t.getCidade());
+			ps.setInt(4, k);
+			ps.executeUpdate();
+			Agencia a = new Agencia();
+			ResultSet rs = ps.getResultSet();
+			while(rs.next()){
+				a.setId(rs.getInt("id"));
+				a.setNome(rs.getString("name"));
+				a.setNumeroAgencia(rs.getString("numeroAgencia"));
+				a.setSaldo(rs.getBigDecimal("saldo"));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void update(BigDecimal t, Integer k){
+		StringBuilder sql = new StringBuilder();
+		try {
+			Connection c = DBConnection.openConnection();
 			sql.append("UPDATE agencia SET saldo = ? WHERE id = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
-			ps.setBigDecimal(1, t.getSaldo());
+			ps.setBigDecimal(1, t);
 			ps.setInt(2, k);
 			ps.executeUpdate();
 			Agencia a = new Agencia();
