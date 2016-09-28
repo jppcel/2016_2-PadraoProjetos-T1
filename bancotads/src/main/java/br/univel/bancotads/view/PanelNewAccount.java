@@ -94,7 +94,5 @@ public class PanelNewAccount extends JPanel {
 		btnConfirme.setBounds(297, 267, 168, 25);
 		add(btnConfirme);
 		
-		
-		
 	}
 }
