@@ -1,14 +1,18 @@
 package br.univel.bancotads.model;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.swing.table.AbstractTableModel;
 import br.univel.bancotads.Usuario;
 	
 	public class BancarioModel extends AbstractTableModel {
 	    
-	    private Map<Integer,Usuario> lista;
+	    /**
+		 * 
+		 */
+		private static final long serialVersionUID = 2403496047002868288L;
+
+		private Map<Integer,Usuario> lista;
 	    
 	    private String[] columnNames = {"Nome", "Username"};
 	    
