@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import br.univel.bancotads.Pessoa;
+import br.univel.bancotads.Usuario;
 import br.univel.bancotads.dao.DaoPessoa;
 import br.univel.bancotads.enums.TipoUsuario;
 import br.univel.bancotads.model.BancarioModel;
@@ -16,6 +17,7 @@ import br.univel.bancotads.model.PessoaModel;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.Map;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
@@ -27,8 +29,10 @@ public class FramePesquisaCliente extends JFrame {
 	private JTable jtPessoa;
 	private DaoPessoa dPessoa;
 	private Map<Integer, Pessoa> listaPessoa;
+	private PanelNewAccount pAccount;
 
 	public FramePesquisaCliente(final PanelNewAccount pAccount) {
+		this.pAccount = pAccount;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 688, 418);
 		contentPane = new JPanel();
@@ -39,6 +43,15 @@ public class FramePesquisaCliente extends JFrame {
 		JButton btSelect = new JButton("Selecionar");
 		btSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				DaoPessoa dPessoa = new DaoPessoa();
+				Pessoa P = dPessoa.search((Integer) jtPessoa.getValueAt(jtPessoa.getSelectedRow(), 2));
+				try {
+					pAccount.setUsuario(P);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				close();
 			}
 		});
 		btSelect.setBounds(555, 355, 117, 25);
@@ -58,5 +71,9 @@ public class FramePesquisaCliente extends JFrame {
 		this.listaPessoa = dPessoa.listAll();
 		PessoaModel model = new PessoaModel(listaPessoa);
 		jtPessoa.setModel(model);
+	}
+	public void close(){
+		this.dispose();
+		
 	}
 }

@@ -9,11 +9,16 @@ import br.univel.bancotads.Usuario;
 import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFormattedTextField.AbstractFormatter;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.awt.event.ActionEvent;
 
 public class PanelNewAccount extends JPanel {
@@ -25,10 +30,12 @@ public class PanelNewAccount extends JPanel {
 	private Pessoa P;
 	private JFormattedTextField tfcpf;
 	private JFormattedTextField tfdataNasc;
+	private MaskFormatter mfdata;
 	
-	public PanelNewAccount(final DefaultView df){
+	public PanelNewAccount(final DefaultView df) throws ParseException{
 		setLayout(null);
-		
+		this.mfdata = new MaskFormatter("##/##/####");
+		mfdata.setPlaceholderCharacter('_');
 		tfNome = new JTextField();
 		tfNome.setBounds(133, 37, 464, 19);
 		add(tfNome);
@@ -116,16 +123,21 @@ public class PanelNewAccount extends JPanel {
 		add(button);
 		
 	}
-	public void setUsuario(Pessoa p){
+	public void setUsuario(Pessoa p) throws ParseException{
+		
 		this.P = p;
 		tfNome.setText(P.getNome());
 		tfNome.setEditable(false);
 		tfdataNasc.setEditable(false);
 		tfcpf.setText(P.getCpf());
 		tfcpf.setEditable(false);
+		final Calendar calendar = Calendar.getInstance();
+		final DateFormat ndf = new SimpleDateFormat("dd/MM/yyyy");
+		tfdataNasc.setText((ndf.format(P.getDataNascimento())).toString());
 		
 	}
 	public void pesquisar(){
 		FramePesquisaCliente fp = new FramePesquisaCliente(this);
+		fp.setVisible(true);
 	}
 }

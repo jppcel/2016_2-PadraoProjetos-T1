@@ -11,7 +11,7 @@ public class PessoaModel extends AbstractTableModel{
 	
 	private Map<Integer,Pessoa> lista;
     
-    private String[] columnNames = {"Nome", "CPF"};
+    private String[] columnNames = {"Nome", "CPF", "ID"};
     
     @Override
     public String getColumnName(int index) {
@@ -27,7 +27,7 @@ public class PessoaModel extends AbstractTableModel{
     }
 
     public int getColumnCount() {
-		return 2;
+		return 3;
     }
 
    public Object getValueAt(int row, int col) {
@@ -38,6 +38,8 @@ public class PessoaModel extends AbstractTableModel{
 				return p.getNome();
 			case 1:
 				return p.getCpf();
+			case 2:
+				return p.getId();
         }          
 		return null;
     }
