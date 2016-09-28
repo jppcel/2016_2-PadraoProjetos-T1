@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import br.univel.bancotads.Usuario;
@@ -16,7 +17,7 @@ import java.awt.Dimension;
 
 public class PanelProfissionais extends JPanel {
 	private DaoUsuario dUsuario;
-	private ArrayList<Usuario> listaUsuario;
+	private List<Usuario> listaUsuario;
 	private JTable tbFuncionarios;
 	
 	public PanelProfissionais(final DefaultView df) {

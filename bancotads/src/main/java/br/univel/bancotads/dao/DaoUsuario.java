@@ -7,9 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import br.univel.bancotads.DBConnection;
+import br.univel.bancotads.Pessoa;
 import br.univel.bancotads.Usuario;
 import br.univel.bancotads.enums.TipoUsuario;
 import br.univel.bancotads.interfaces.Dao;
@@ -240,9 +242,9 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 		return null;
 	}
 	
-	public ArrayList<Usuario> listFuncionarios() {
+	public List<Usuario> listFuncionarios() {
 		StringBuilder sql = new StringBuilder();
-		ArrayList<Usuario> lista = new ArrayList<Usuario>();
+		List<Usuario> lista = new ArrayList<>();
 		try {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT PESSOA.NAME,  USUARIO.USERNAME FROM USUARIO INNER JOIN PESSOA ON USUARIO.PESSOA=PESSOA.ID");
@@ -253,8 +255,9 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 			ResultSet rs = ps.getResultSet();
 			while(rs.next()){
 				u.clear();
-				u.getPessoa().setNome((rs.getString("name")));
-				u.getPessoa().setNome((rs.getString("pessoa")));
+				u.pessoa = new Pessoa();
+				u.pessoa.setNome((rs.getString("name")));
+				u.setUsername(rs.getString("username"));
 				lista.add(u);
 			}
 			rs.close();
