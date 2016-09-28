@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.univel.bancotads.Agencia;
 import br.univel.bancotads.Conta;
 import br.univel.bancotads.DBConnection;
 import br.univel.bancotads.enums.TipoConta;
@@ -69,6 +70,7 @@ public class DaoConta implements Dao<Conta, Integer> {
 				C.setId(rs.getInt("id"));
 				C.setAgencia(new DaoAgencia().search(rs.getInt("agencia")));
 				C.setNumeroConta(rs.getString("numeroConta"));
+				C.setUsuario(new DaoUsuario().search(rs.getInt("usuario")));
 				C.setTipoConta(TipoConta.values()[rs.getInt("tipoConta")-1]);
 				C.setSaldo(rs.getBigDecimal("saldo"));
 			}
@@ -80,20 +82,23 @@ public class DaoConta implements Dao<Conta, Integer> {
 		return null;
 	}
 	
-	public Conta search(String numeroConta){
+	public Conta searchConta(String numeroAgencia, String numeroConta){
 		StringBuilder sql = new StringBuilder();
 		try {
 			Connection c = DBConnection.openConnection();
-			sql.append("SELECT * FROM conta WHERE numeroConta = ?");
+			Agencia a = new DaoAgencia().search(numeroAgencia);
+			sql.append("SELECT * FROM conta WHERE numeroConta = ? AND agencia = ?");
 			PreparedStatement ps = c.prepareStatement(sql.toString());
 			ps.setString(1, numeroConta);
+			ps.setInt(2, a.getId());
 			ps.executeQuery();
 			ResultSet rs = ps.getResultSet();
 			Conta C = new Conta();
 			while(rs.next()){
 				C.setId(rs.getInt("id"));
-				C.setAgencia(new DaoAgencia().search(rs.getInt("agencia")));
+				C.setAgencia(a);
 				C.setNumeroConta(rs.getString("numeroConta"));
+				C.setUsuario(new DaoUsuario().search(rs.getInt("usuario")));
 				C.setTipoConta(TipoConta.values()[rs.getInt("tipoConta")-1]);
 				C.setSaldo(rs.getBigDecimal("saldo"));
 			}
@@ -121,6 +126,7 @@ public class DaoConta implements Dao<Conta, Integer> {
 				C.setId(rs.getInt("id"));
 				C.setAgencia(new DaoAgencia().search(rs.getInt("agencia")));
 				C.setNumeroConta(rs.getString("numeroConta"));
+				C.setUsuario(new DaoUsuario().search(rs.getInt("usuario")));
 				C.setTipoConta(TipoConta.values()[rs.getInt("tipoConta")-1]);
 				C.setSaldo(rs.getBigDecimal("saldo"));
 				m.put(rs.getInt("id"), C);
@@ -148,6 +154,7 @@ public class DaoConta implements Dao<Conta, Integer> {
 				C.setId(rs.getInt("id"));
 				C.setAgencia(new DaoAgencia().search(rs.getInt("agencia")));
 				C.setNumeroConta(rs.getString("numeroConta"));
+				C.setUsuario(new DaoUsuario().search(rs.getInt("usuario")));
 				C.setTipoConta(TipoConta.values()[rs.getInt("tipoConta")-1]);
 				C.setSaldo(rs.getBigDecimal("saldo"));
 				m.put(rs.getInt("id"), C);
