@@ -81,6 +81,7 @@ public class DaoPessoa implements Dao<Pessoa, Integer>{
 	public Map<Integer, Pessoa> search(String field, String text) {
 		StringBuilder sql = new StringBuilder();
 		Map<Integer, Pessoa> m = new HashMap<Integer, Pessoa>();
+		int i = 0;
 		try {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT * FROM pessoa WHERE ").append(field).append(" = ?");
@@ -96,7 +97,7 @@ public class DaoPessoa implements Dao<Pessoa, Integer>{
 				p.setCpf(rs.getString("cpf"));
 				p.setDataNascimento(new java.util.Date(rs.getDate("born").getTime()));
 				p.setGenero(Genero.values()[rs.getInt("genero")]);
-				m.put(rs.getInt("id"), p);
+				m.put(i++, p);
 			}
 			rs.close();
 			return m;
@@ -109,6 +110,7 @@ public class DaoPessoa implements Dao<Pessoa, Integer>{
 	public Map<Integer, Pessoa> listAll() {
 		StringBuilder sql = new StringBuilder();
 		Map<Integer, Pessoa> m = new HashMap<Integer, Pessoa>();
+		int i = 0; 
 		try {
 			Connection c = DBConnection.openConnection();
 			sql.append("SELECT * FROM pessoa");
@@ -123,7 +125,7 @@ public class DaoPessoa implements Dao<Pessoa, Integer>{
 				p.setCpf(rs.getString("cpf"));
 				p.setDataNascimento(new java.util.Date(rs.getDate("born").getTime()));
 				p.setGenero(Genero.values()[rs.getInt("genero")]);
-				m.put(rs.getInt("id"), p);
+				m.put(i++, p);
 			}
 			rs.close();
 			return m;
