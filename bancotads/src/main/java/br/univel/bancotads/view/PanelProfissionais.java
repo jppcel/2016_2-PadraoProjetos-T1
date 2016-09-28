@@ -48,6 +48,12 @@ public class PanelProfissionais extends JPanel {
 		add(btnRemoveFuncionario);
 		
 		JButton btnEditFuncionario = new JButton("");
+		btnEditFuncionario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				dUsuario.search(tbFuncionarios.getValueAt(tbFuncionarios.getSelectedRow(), 2).toString()); 
+			}
+		});
 		btnEditFuncionario.setIcon(new ImageIcon(PanelProfissionais.class.getResource("/org/freedesktop/tango/22x22/categories/applications-graphics.png")));
 		btnEditFuncionario.setBounds(403, 363, 55, 25);
 		add(btnEditFuncionario);
