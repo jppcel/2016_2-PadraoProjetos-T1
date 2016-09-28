@@ -70,7 +70,7 @@ public class DaoConta implements Dao<Conta, Integer> {
 				C.setId(rs.getInt("id"));
 				C.setAgencia(new DaoAgencia().search(rs.getInt("agencia")));
 				C.setNumeroConta(rs.getString("numeroConta"));
-				C.setUsuario(new DaoUsuario().search(rs.getInt("usuario")));
+				C.setUsuario(new DaoUsuario().searchPorConta(rs.getInt("id")));
 				C.setTipoConta(TipoConta.values()[rs.getInt("tipoConta")-1]);
 				C.setSaldo(rs.getBigDecimal("saldo"));
 			}
@@ -98,7 +98,7 @@ public class DaoConta implements Dao<Conta, Integer> {
 				C.setId(rs.getInt("id"));
 				C.setAgencia(a);
 				C.setNumeroConta(rs.getString("numeroConta"));
-				C.setUsuario(new DaoUsuario().search(rs.getInt("usuario")));
+				C.setUsuario(new DaoUsuario().searchPorConta(rs.getInt("id")));
 				C.setTipoConta(TipoConta.values()[rs.getInt("tipoConta")-1]);
 				C.setSaldo(rs.getBigDecimal("saldo"));
 			}
@@ -126,7 +126,7 @@ public class DaoConta implements Dao<Conta, Integer> {
 				C.setId(rs.getInt("id"));
 				C.setAgencia(new DaoAgencia().search(rs.getInt("agencia")));
 				C.setNumeroConta(rs.getString("numeroConta"));
-				C.setUsuario(new DaoUsuario().search(rs.getInt("usuario")));
+				C.setUsuario(new DaoUsuario().searchPorConta(rs.getInt("id")));
 				C.setTipoConta(TipoConta.values()[rs.getInt("tipoConta")-1]);
 				C.setSaldo(rs.getBigDecimal("saldo"));
 				m.put(rs.getInt("id"), C);
@@ -154,7 +154,7 @@ public class DaoConta implements Dao<Conta, Integer> {
 				C.setId(rs.getInt("id"));
 				C.setAgencia(new DaoAgencia().search(rs.getInt("agencia")));
 				C.setNumeroConta(rs.getString("numeroConta"));
-				C.setUsuario(new DaoUsuario().search(rs.getInt("usuario")));
+				C.setUsuario(new DaoUsuario().searchPorConta(rs.getInt("id")));
 				C.setTipoConta(TipoConta.values()[rs.getInt("tipoConta")-1]);
 				C.setSaldo(rs.getBigDecimal("saldo"));
 				m.put(rs.getInt("id"), C);
