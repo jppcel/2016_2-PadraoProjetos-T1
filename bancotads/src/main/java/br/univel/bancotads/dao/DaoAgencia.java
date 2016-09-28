@@ -58,6 +58,7 @@ public class DaoAgencia implements Dao<Agencia, Integer> {
 				a.setId(rs.getInt("id"));
 				a.setNome(rs.getString("name"));
 				a.setNumeroAgencia(rs.getString("numeroAgencia"));
+				a.setCidade(rs.getString("cidade"));
 				a.setSaldo(rs.getBigDecimal("saldo"));
 			}
 			rs.close();
@@ -82,6 +83,7 @@ public class DaoAgencia implements Dao<Agencia, Integer> {
 				a.setId(rs.getInt("id"));
 				a.setNome(rs.getString("name"));
 				a.setNumeroAgencia(rs.getString("numeroAgencia"));
+				a.setCidade(rs.getString("cidade"));
 				a.setSaldo(rs.getBigDecimal("saldo"));
 			}
 			rs.close();
@@ -106,6 +108,7 @@ public class DaoAgencia implements Dao<Agencia, Integer> {
 				a.setId(rs.getInt("id"));
 				a.setNome(rs.getString("name"));
 				a.setNumeroAgencia(rs.getString("numeroAgencia"));
+				a.setCidade(rs.getString("cidade"));
 				a.setSaldo(rs.getBigDecimal("saldo"));
 				m.put(rs.getInt("id"), a);
 			}
