@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import br.univel.bancotads.DBCreator;
 import br.univel.bancotads.Login;
 import br.univel.bancotads.SoftwareProperties;
+import br.univel.bancotads.Usuario;
 
 import javax.swing.JMenuBar;
 import java.awt.Color;
@@ -254,7 +255,9 @@ public class DefaultView extends JFrame {
 			login.setVisible(true);
 		}
 	}
-	
+	public void editarBancario(Usuario u){
+		panel_bancarioRegister.editUser(u);
+	}
 	public void doSair(){
 		int dialogResult = JOptionPane.showConfirmDialog(getInstance(), "Tem certeza que deseja sair do software?", "Confirmação", JOptionPane.YES_NO_OPTION);
 		if(dialogResult == 0){

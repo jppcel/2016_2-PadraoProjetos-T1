@@ -51,7 +51,10 @@ public class PanelProfissionais extends JPanel {
 		btnEditFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				dUsuario.search(tbFuncionarios.getValueAt(tbFuncionarios.getSelectedRow(), 2).toString()); 
+				Usuario uAlt = dUsuario.search(tbFuncionarios.getValueAt(tbFuncionarios.getSelectedRow(), 1).toString());
+				df.editarBancario(uAlt);
+				df.showPanel("bancarioRegister");
+				
 			}
 		});
 		btnEditFuncionario.setIcon(new ImageIcon(PanelProfissionais.class.getResource("/org/freedesktop/tango/22x22/categories/applications-graphics.png")));

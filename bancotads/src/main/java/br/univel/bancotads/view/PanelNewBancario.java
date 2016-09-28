@@ -16,6 +16,8 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
+
+import br.univel.bancotads.Usuario;
 import br.univel.bancotads.enums.Genero;
 import javax.swing.JFormattedTextField;
 
@@ -25,8 +27,11 @@ public class PanelNewBancario extends JPanel {
 	private JTextField tf_senhaacesso;
 	private JTextField tf_username;
 	private JTextField tf_nome;
+	private JFormattedTextField tfDataNasc;
+	private JFormattedTextField tfCpf;
 	private MaskFormatter mfdata;
 	private MaskFormatter mfcpf;
+	private Usuario user;
 
 	/**
 	 * Create the panel.
@@ -90,7 +95,7 @@ public class PanelNewBancario extends JPanel {
 		gbc_lblNewLabel_3.gridy = 5;
 		add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		final JFormattedTextField tfDataNasc = new JFormattedTextField(mfdata);
+		tfDataNasc = new JFormattedTextField(mfdata);
 		GridBagConstraints gbc_tfDataNasc = new GridBagConstraints();
 		gbc_tfDataNasc.gridwidth = 4;
 		gbc_tfDataNasc.insets = new Insets(0, 0, 5, 0);
@@ -108,7 +113,7 @@ public class PanelNewBancario extends JPanel {
 		gbc_lblCpf.gridy = 7;
 		add(lblCpf, gbc_lblCpf);
 		
-		final JFormattedTextField tfCpf = new JFormattedTextField(mfcpf);
+		tfCpf = new JFormattedTextField(mfcpf);
 		GridBagConstraints gbc_tfCpf = new GridBagConstraints();
 		gbc_tfCpf.gridwidth = 4;
 		gbc_tfCpf.insets = new Insets(0, 0, 5, 5);
@@ -218,5 +223,15 @@ public class PanelNewBancario extends JPanel {
 			this.mfdata = mfdata;
 			this.mfcpf = mfcpf;
 			
+	}
+	
+	public void editUser(Usuario u){
+		this.user = u;
+		tf_nome.setText(u.getPessoa().getNome());
+		tf_username.setText(u.getUsername());
+		tfCpf.setText(u.getPessoa().getCpf());
+		//tfDataNasc.setText(mfdata.(u.getPessoa().getDataNascimento()));
+		
+		
 	}
 }
