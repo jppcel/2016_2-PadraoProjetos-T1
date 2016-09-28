@@ -144,6 +144,38 @@ public class DaoUsuario implements Dao<Usuario, Integer> {
 		return null;
 	}
 
+	public Map<Integer, Usuario> search(TipoUsuario tu) {
+		StringBuilder sql = new StringBuilder();
+		Map<Integer, Usuario> m = new HashMap<Integer, Usuario>();
+		try {
+			Connection c = DBConnection.openConnection();
+			sql.append("SELECT * FROM usuario WHERE tipoUsuario = ?");
+			PreparedStatement ps = c.prepareStatement(sql.toString());
+			ps.setInt(1, tu.getId());
+			ps.executeQuery();
+			Usuario u = new Usuario();
+			DaoPessoa daop = new DaoPessoa();
+			ResultSet rs = ps.getResultSet();
+			while(rs.next()){
+				u.clear();
+				u.setIdUsuario(rs.getInt("id"));
+				u.setPessoa(daop.search(rs.getInt("pessoa")));
+				u.setUsername(rs.getString("username"));
+				u.setPassword(rs.getString("password"));
+				u.setPasswordOperacoes(rs.getString("passwordOperacoes"));
+				u.setTu(tu);
+				u.setConta(new DaoConta().search(rs.getInt("conta")));
+				u.setAtivo(rs.getBoolean("ativo"));
+				m.put(rs.getInt("id"), u);
+			}
+			rs.close();
+			return m;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public Map<Integer, Usuario> search(String field, String text) {
 		StringBuilder sql = new StringBuilder();
 		Map<Integer, Usuario> m = new HashMap<Integer, Usuario>();
