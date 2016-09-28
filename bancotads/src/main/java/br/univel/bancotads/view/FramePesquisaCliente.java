@@ -48,7 +48,6 @@ public class FramePesquisaCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public FramePesquisaCliente() {
-		updateTable();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 688, 418);
 		contentPane = new JPanel();
@@ -75,6 +74,7 @@ public class FramePesquisaCliente extends JFrame {
 		jtPessoa = new JTable();
 		jtPessoa.setSize(new Dimension(450, 400));
 		scrollPane.setViewportView(jtPessoa);
+		updateTable();
 	}
 	public void updateTable(){
 		this.dPessoa = new DaoPessoa();
