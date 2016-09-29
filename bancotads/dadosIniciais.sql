@@ -7,7 +7,8 @@ INSERT INTO tipoUsuario values
 (2, 'Bancário');
 INSERT INTO tipoOperacao values 
 (1, 'Saque'),
-(2, 'Depósito');
+(2, 'Depósito'),
+(3, 'Transferência');
 INSERT INTO genero values 
 (1, 'Masculino'), 
 (2, 'Feminino'), 
