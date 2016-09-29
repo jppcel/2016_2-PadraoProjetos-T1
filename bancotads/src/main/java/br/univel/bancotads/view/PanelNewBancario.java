@@ -225,7 +225,6 @@ public class PanelNewBancario extends JPanel {
 			mfcpf.setPlaceholderCharacter('_');
 			this.mfdata = mfdata;
 			this.mfcpf = mfcpf;
-			
 	}
 	
 	public void editUser(Usuario u){
@@ -244,6 +243,7 @@ public class PanelNewBancario extends JPanel {
 		tf_nome.setText("");
 		tf_username.setText("");
 		tfCpf.setText("");
+		tfDataNasc.setText("");
 		
 	}
 }
