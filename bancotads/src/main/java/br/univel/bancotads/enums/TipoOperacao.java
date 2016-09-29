@@ -2,7 +2,8 @@ package br.univel.bancotads.enums;
 
 public enum TipoOperacao {
 	SAQUE(1, "Saque"),
-	DEPOSITO(2, "Depósito");
+	DEPOSITO(2, "Depósito"),
+	TRANSFERENCIA(3, "Transferência");
 	
 	int id;
 	String nome;

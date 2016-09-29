@@ -13,12 +13,16 @@ import java.awt.Color;
 import javax.swing.event.ChangeListener;
 
 import br.univel.bancotads.Conta;
+import br.univel.bancotads.Movimentacao;
 import br.univel.bancotads.Usuario;
 import br.univel.bancotads.dao.DaoConta;
 
 import javax.swing.event.ChangeEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.math.BigDecimal;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PanelDepositClient extends JPanel {
 	/**
@@ -28,10 +32,12 @@ public class PanelDepositClient extends JPanel {
 	final JCheckBox chckbxContaLogada;
 	private JTextField tf_ag;
 	private JTextField tf_conta;
-	private JTextField textField_2;
+	private JTextField tf_valor;
 	private JTextField tf_titular;
 	private JTextField tf_tipoConta;
 	private final DefaultView dv;
+	
+	private int idConta;
 
 	/**
 	 * Create the panel.
@@ -55,14 +61,14 @@ public class PanelDepositClient extends JPanel {
 		gbc_lblNewLabel_2.gridy = 0;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		textField_2 = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_2.fill = GridBagConstraints.BOTH;
-		gbc_textField_2.gridx = 2;
-		gbc_textField_2.gridy = 0;
-		add(textField_2, gbc_textField_2);
-		textField_2.setColumns(10);
+		tf_valor = new JTextField();
+		GridBagConstraints gbc_tf_valor = new GridBagConstraints();
+		gbc_tf_valor.insets = new Insets(0, 0, 5, 5);
+		gbc_tf_valor.fill = GridBagConstraints.BOTH;
+		gbc_tf_valor.gridx = 2;
+		gbc_tf_valor.gridy = 0;
+		add(tf_valor, gbc_tf_valor);
+		tf_valor.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("AG:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -154,6 +160,12 @@ public class PanelDepositClient extends JPanel {
 
 		
 		JButton btnNewButton = new JButton("Confirme");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				efetuaDeposito();
+			}
+		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton.ipady = 20;
@@ -191,6 +203,7 @@ public class PanelDepositClient extends JPanel {
 			tf_conta.setText(c.getNumeroConta());
 			tf_tipoConta.setText(c.getTipoConta().getNome());
 			tf_titular.setText(u.getPessoa().getNome());
+			idConta = c.getId();
 		}else{
 			tf_ag.setEnabled(true);
 			tf_ag.setEditable(true);
@@ -200,7 +213,18 @@ public class PanelDepositClient extends JPanel {
 			tf_conta.setText("");
 			tf_tipoConta.setText("");
 			tf_titular.setText("");
+			idConta = 0;
 		}
+	}
+	
+	public void efetuaDeposito(){
+		BigDecimal valor = new BigDecimal(tf_valor.getText());
+		Movimentacao m = new Movimentacao(dv);
+		m.setC(new DaoConta().search(idConta));
+		m.setValor(valor);
+		m.efetuaDeposito();
+		tf_valor.setText("");
+		chckbxContaLogada.setSelected(true);
 	}
 	
 	public void checkConta(){
@@ -210,7 +234,9 @@ public class PanelDepositClient extends JPanel {
 			if(c != null){
 				tf_tipoConta.setText(c.getTipoConta().getNome());
 				tf_titular.setText(c.getUsuario().getPessoa().getNome());
+				idConta = c.getId();
 			}else{
+				idConta = 0;
 				tf_tipoConta.setText("");
 				tf_titular.setText("");
 			}
