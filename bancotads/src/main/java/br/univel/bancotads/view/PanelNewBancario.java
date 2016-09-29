@@ -14,7 +14,10 @@ import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.awt.event.ActionEvent;
 
 import br.univel.bancotads.Usuario;
@@ -230,8 +233,17 @@ public class PanelNewBancario extends JPanel {
 		tf_nome.setText(u.getPessoa().getNome());
 		tf_username.setText(u.getUsername());
 		tfCpf.setText(u.getPessoa().getCpf());
-		//tfDataNasc.setText(mfdata.(u.getPessoa().getDataNascimento()));
+		final Calendar calendar = Calendar.getInstance();
+		final DateFormat ndf = new SimpleDateFormat("dd/MM/yyyy");
+		tfDataNasc.setText((ndf.format(u.getPessoa().getDataNascimento())).toString());
 		
+		
+	}
+
+	public void clearFields() {
+		tf_nome.setText("");
+		tf_username.setText("");
+		tfCpf.setText("");
 		
 	}
 }

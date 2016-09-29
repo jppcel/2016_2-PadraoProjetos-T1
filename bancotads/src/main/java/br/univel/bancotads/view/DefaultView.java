@@ -48,6 +48,7 @@ public class DefaultView extends JFrame {
 	private final PanelProfissionais panel_profissionais;
 	private final PanelBalanco panel_balanco;
 	private final PanelAgencias panel_agencias;
+	private final PanelNewAccount panel_newaccount;
 	
 	private final LoginView login;
 	
@@ -160,6 +161,9 @@ public class DefaultView extends JFrame {
 		panel_agencias = new PanelAgencias(this);
 		cards.add(panel_agencias, "agencias");
 		
+		panel_newaccount = new PanelNewAccount(this);
+		cards.add(panel_newaccount, "newaccount");
+		
 		PanelWhite panel_white = new PanelWhite();
 		cards.add(panel_white, "white");
 
@@ -263,6 +267,11 @@ public class DefaultView extends JFrame {
 		if(dialogResult == 0){
 			System.exit(0);
 		}
+	}
+
+	public void clearBancario() {
+		panel_bancarioRegister.clearFields();
+		
 	}
 
 }

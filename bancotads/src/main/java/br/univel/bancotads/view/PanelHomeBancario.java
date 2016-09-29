@@ -54,6 +54,11 @@ public class PanelHomeBancario extends JPanel {
 		add(btn_4, gbc_btn_4);
 		
 		JButton btn_2 = new JButton("2 - Nova Conta");
+		btn_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				df.showPanel("newaccount");
+			}
+		});
 		GridBagConstraints gbc_btn_2 = new GridBagConstraints();
 		gbc_btn_2.ipady = 30;
 		gbc_btn_2.fill = GridBagConstraints.HORIZONTAL;

@@ -36,6 +36,7 @@ public class PanelProfissionais extends JPanel {
 		btnAddFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				df.showPanel("bancarioRegister");
+				df.clearBancario();
 			}
 		});
 		btnAddFuncionario.setIcon(new ImageIcon(PanelProfissionais.class.getResource("/org/freedesktop/tango/32x32/actions/list-add.png")));
