@@ -92,7 +92,31 @@ public class DaoMovimentacao implements Dao<Movimentacao, Integer> {
 
 	@Override
 	public Map<Integer, Movimentacao> listAll() {
-		// TODO Auto-generated method stub
+		StringBuilder sql = new StringBuilder();
+		Map<Integer, Movimentacao> m = new HashMap<Integer, Movimentacao>();
+		int i = 0;
+		try {
+			Connection c = DBConnection.openConnection();
+			sql.append("SELECT * FROM movimentacao;");
+			PreparedStatement ps = c.prepareStatement(sql.toString());
+			ps.executeQuery();
+			ResultSet rs = ps.getResultSet();
+			Movimentacao M = null;
+			while(rs.next()){
+				M = new Movimentacao();
+				M.setId(rs.getInt("id"));
+				M.setC(new DaoConta().search(rs.getInt("conta")));
+				M.setTo(TipoOperacao.values()[rs.getInt("tipoOperacao")-1]);
+				M.setU(new DaoUsuario().search(rs.getInt("usuario")));
+				M.setValor(rs.getBigDecimal("valor"));
+				M.setData(new java.util.Date(rs.getDate("dataMovimentacao").getTime()));
+				M.setMotivoMovimentacao(rs.getString("motivoMovimentacao"));
+				m.put(i++, M);
+			}
+			return m;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
