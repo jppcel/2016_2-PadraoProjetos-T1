@@ -14,14 +14,16 @@ import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+import java.awt.Dimension;
 
 public class PanelBalanco extends JPanel{
-	private JTable jtbalanco;
 	private JTextField tfDepositos;
 	private JTextField tfSaques;
 	private JTextField tfCaixa;
 	private JTextField tfDatainicio;
 	private JTextField tfDatafim;
+	private JTable table;
 	
 	public PanelBalanco(final DefaultView df) {
 		setLayout(null);
@@ -36,10 +38,6 @@ public class PanelBalanco extends JPanel{
 		});
 		btVoltar.setBounds(622, 366, 78, 25);
 		add(btVoltar);
-		
-		jtbalanco = new JTable();
-		jtbalanco.setBounds(12, 12, 688, 270);
-		add(jtbalanco);
 		
 		JLabel jlDepositos = new JLabel("Total de depósitos:");
 		jlDepositos.setBounds(22, 294, 144, 15);
@@ -72,14 +70,12 @@ public class PanelBalanco extends JPanel{
 		add(tfCaixa);
 		
 		tfDatainicio = new JTextField();
-		tfDatainicio.setEditable(false);
 		tfDatainicio.setBounds(195, 370, 114, 19);
 		add(tfDatainicio);
 		tfDatainicio.setColumns(10);
 		tfDatainicio.setText(ndf.format(calendar.getTime()));
 		
 		tfDatafim = new JTextField();
-		tfDatafim.setEditable(false);
 		tfDatafim.setColumns(10);
 		tfDatafim.setBounds(313, 370, 114, 19);
 		add(tfDatafim);
@@ -181,6 +177,14 @@ public class PanelBalanco extends JPanel{
 		btnaddano.setIcon(new ImageIcon(PanelBalanco.class.getResource("/org/freedesktop/tango/32x32/actions/media-skip-forward.png")));
 		btnaddano.setBounds(556, 366, 57, 25);
 		add(btnaddano);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 12, 684, 276);
+		add(scrollPane);
+		
+		table = new JTable();
+		table.setPreferredSize(new Dimension(450, 400));
+		scrollPane.setViewportView(table);
 		
 	}
 }
