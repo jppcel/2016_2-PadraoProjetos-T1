@@ -68,6 +68,11 @@ public class Movimentacao {
 		this.dv = dv;
 		this.panel_header = dv.getPanel_header();
 	}
+
+	public Movimentacao(){
+		dv = null;
+		panel_header = null;
+	}
 	
 	public void executaMovimentacao(){
 		if(to.getId() == 1){
@@ -195,10 +200,10 @@ public class Movimentacao {
 					this.data = new Date();
 					executaMovimentacao();
 				}else{
-					JOptionPane.showConfirmDialog(dv, "Operação não efetuada! Devido a regras internas, não há possibilidade de efetuar saque desse valor neste momento.", "AVISO!", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showConfirmDialog(dv, "Operação não efetuada! Devido a regras internas, não há possibilidade de efetuar transferências desse valor neste momento.", "AVISO!", JOptionPane.WARNING_MESSAGE);
 				}
 			}else{
-				JOptionPane.showConfirmDialog(dv, "Operação não efetuada! Não há saldo suficiente para saque.", "AVISO!", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showConfirmDialog(dv, "Operação não efetuada! Não há saldo suficiente para transferência.", "AVISO!", JOptionPane.WARNING_MESSAGE);
 			}
 		}else{
 			JOptionPane.showConfirmDialog(dv, "Operação não efetuada.", "AVISO!", JOptionPane.WARNING_MESSAGE);
