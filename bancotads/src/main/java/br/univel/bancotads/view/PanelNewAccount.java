@@ -105,6 +105,11 @@ public class PanelNewAccount extends JPanel {
 		add(lblSenhaDeOperaes);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				df.showPanel("homeBancario");
+			}
+		});
 		btnVoltar.setBounds(563, 421, 117, 25);
 		add(btnVoltar);
 		
